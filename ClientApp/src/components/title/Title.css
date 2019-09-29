@@ -1,0 +1,27 @@
+hr.title-style {
+    margin-left: 400px;
+    margin-right: 400px;
+    margin-bottom: 20px;
+    border: 0;
+    height: 1.5px;
+    color:rgb(255, 0, 0);
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+}
+
+h1.title{
+    font-size: 5rem;
+    font-weight: 10;
+}
+
+@media only screen and (max-width:1200px){
+    hr.title-style {
+    margin-left: 200px;
+    margin-right: 200px;
+    }
+}
+@media only screen and (max-width:700px){
+    hr.title-style {
+    margin-left: 50px;
+    margin-right: 50px;
+    }
+}

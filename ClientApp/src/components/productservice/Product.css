@@ -1,0 +1,26 @@
+.card.products-card{
+    min-width:390px;
+    min-height: 500px;
+    max-height: 500px;
+}
+.card .title{
+    min-height: 52px;
+    max-height: 52px;
+}
+.card-image.products-card-image{
+    max-height: 330px;
+}
+.image.products-image{
+    max-height: 330px;
+
+}
+.image img.products-img{
+    min-height: 330px;    
+    max-height: 330px;
+    width:auto;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}

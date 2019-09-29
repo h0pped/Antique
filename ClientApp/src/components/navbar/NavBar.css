@@ -1,0 +1,46 @@
+
+
+.breadcrumb {
+    background-color: #f9f9f9;
+    height: 100px;
+    display: flex;
+  align-items: center
+
+}
+.breadcrumb ul{
+    margin-right: auto;
+  margin-left: auto;
+}
+.breadcrumb li {
+    min-height: 50px;
+    align-items: center; 
+}
+.breadcrumb li:first-child a{
+    
+    padding-left: 20px;
+}
+.breadcrumb li a {
+    min-height: 50px;
+    color:black;
+    background: #f9f9f9;    
+    font-size: 1.5rem;
+    transition: background-color 400ms linear;
+
+}
+.breadcrumb li a:hover {
+    color:white;
+    background-color:black;
+    transition: background-color 400ms linear;
+}
+.breadcrumb  li + li::before{
+    padding: 8px;
+    content: " ";
+}
+ 
+@media only screen and (max-width:650px){
+    .breadcrumb li a {
+        font-size: 0.8rem;
+        min-height: 15px;
+
+    }
+} 
