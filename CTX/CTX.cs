@@ -1,4 +1,5 @@
 ﻿using Antique.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Antique.Context
 {
-    public class CTX : DbContext
+    public class CTX : IdentityDbContext<User>
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Photo> Photos { get; set; }
