@@ -8,7 +8,6 @@ import Commodes from './components/Commodes/Commodes';
 import Clocks from './components/Clocks/Clocks';
 import Soft from './components/Soft/Soft';
 import Tables from './components/Tables/Tables';
-import Another from './components/Another/Another';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -22,7 +21,6 @@ export default class App extends Component {
         <Route exact path='/Часы' component={Clocks} />
         <Route exact path='/МягкаяЧасть' component={Soft} />
         <Route exact path='/СтолыИСтулья' component={Tables} />
-        <Route exact path='/Разное' component={Another} />
         
         <Route exact path='/description/:id' component={ProductDescription} />
       </Layout>

@@ -13,7 +13,6 @@ class Products extends Component{
             return <div>Загрузка...</div>;
         }
         else{
-            console.log(products)
             return(
                 <div>
                     <div className="columns is-multiline is-mobile">

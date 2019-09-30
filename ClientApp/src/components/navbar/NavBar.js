@@ -12,10 +12,8 @@ export default class NavBar extends Component{
              <nav className="breadcrumb is-large is-centered" aria-label="breadcrumbs">
                  <ul>
                    <li><Link to="/Комоды">Комоды</Link></li>
-                   <li><Link to="/Шкафы">Шкафы</Link></li>
-                   <li><Link to="/Мягкая часть">Мягкая часть</Link></li>
-                   <li><Link to="/Столы">Столы</Link></li>
-                   <li><Link to="/Стулья">Стулья</Link></li>
+                   <li><Link to="/МягкаяЧасть">Мягкая часть</Link></li>
+                   <li><Link to="/СтолыИСтулья">Столы и Стулья</Link></li>
                    <li><Link to="/Часы">Часы</Link></li>
                    <li><Link to="/Разное">Разное</Link></li>
                  </ul>

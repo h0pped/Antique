@@ -16,7 +16,9 @@ export default class ProductService extends Component{
     }
 
     componentDidMount(){
+        console.log(this.props.category);
         let url = this.state.apiUrl;
+        
             if(this.props.category){
                 console.log(this.props.category);
                  url = this.state.apiUrl+"/GetByCategory/"+this.props.category;
@@ -50,7 +52,6 @@ export default class ProductService extends Component{
             <div>
                 <Products products={currentProducts} isloaded={isloaded} error={error}/>
                 <Pagination productsPerPage={productsPerPage} totalProducts={products.length} paginate={paginate} currentPage={currentPage}/>
-
             </div>
             )
     }

@@ -1,0 +1,13 @@
+.image img{
+    max-height: 500px;   
+    width:auto;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.div-description{
+    margin-top: 10px;
+    
+}

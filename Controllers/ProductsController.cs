@@ -33,7 +33,6 @@ namespace antique_store.Controllers
                 p.Description,
                 p.Category,
                 p.Photos
-                
             });
             
             return Ok(model.ToList());
@@ -114,7 +113,6 @@ namespace antique_store.Controllers
             {
                 return null;
             }
-
         }
         [HttpPut]
         [Route("add")]
