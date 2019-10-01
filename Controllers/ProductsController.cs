@@ -239,7 +239,7 @@ namespace antique_store.Controllers
                 }
             });
             await _context.SaveChangesAsync(); */
-             var model = _context.Products.Select(p => new
+            var model = _context.Products.Select(p => new
             {
                 p.ID,
                 p.Name,
@@ -248,6 +248,7 @@ namespace antique_store.Controllers
                 p.Category,
                 p.Photos
             });
+            
             
             return Ok(model.ToList());
 
