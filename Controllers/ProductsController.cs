@@ -264,16 +264,8 @@ namespace antique_store.Controllers
                 p.Name,
                 p.Price,
                 p.Description,
-                Category = new
-                {
-                    p.Category.Name,
-                    p.Category.ID
-                },
-                Photos = p.Photos.Select(x => new
-                {
-                    x.ID,
-                    x.Path
-                }),
+                p.Category,
+                p.Photos
             }).FirstOrDefault(x => x.ID == id);
             if (model == null)
             {
@@ -292,16 +284,8 @@ namespace antique_store.Controllers
                 p.Name,
                 p.Price,
                 p.Description,
-                Category = new
-                {
-                    p.Category.Name,
-                    p.Category.ID
-                },
-                Photos = p.Photos.Select(x => new
-                {
-                    x.ID,
-                    x.Path
-                }),
+                p.Category,
+                p.Photos
             }).Where(x => x.Category.Name == category);
 
 
