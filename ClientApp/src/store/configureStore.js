@@ -7,7 +7,7 @@ import * as WeatherForecasts from './WeatherForecasts';
 export default function configureStore (history, initialState) {
   const reducers = {
     counter: Counter.reducer,
-    weatherForecasts: WeatherForecasts.reducer
+    weatherForecasts: WeatherForecasts.reducer,
   };
 
   const middleware = [
