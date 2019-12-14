@@ -10,6 +10,7 @@ import Soft from './components/Soft/Soft';
 import Tables from './components/Tables/Tables';
 import Another from './components/Another/Another';
 import Login from './components/Login/Login';
+import AddNewProduct from './components/AddNewProduct/AddNewProduct';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -29,6 +30,7 @@ export default class App extends Component {
         <Route exact path='/Login' component={Login} />
         
         <Route exact path='/description/:id' component={ProductDescription} />
+        <Route exact path='/AddProduct' component={AddNewProduct} />
       </Layout>
     );
   }

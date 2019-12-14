@@ -28,6 +28,7 @@ class Footer extends Component{
         event.preventDefault();
         deleteJwt();
         this.setState({Auth:false})
+        window.location.reload();
 
     }
 render(){
@@ -38,7 +39,7 @@ render(){
             {
              Auth? 
              <div>
-                 <Link to="/Login"><a className="button is-dark">Добавить новый товар</a></Link>  
+                 <Link to="/AddProduct"><a className="button is-dark">Добавить новый товар</a></Link>  
                  <br/>
                  <br/>
             <Link to="/" onClick={(e)=>this.handleLogOff(e)}><a className="button is-dark">Выйти</a></Link>                
