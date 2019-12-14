@@ -24,7 +24,6 @@ class Login extends Component{
         ...this.state.form,
         [name]:value
     }});
-    console.log(name,value);
   }
   handleSubmit(e){
     e.preventDefault();
@@ -35,6 +34,8 @@ class Login extends Component{
       localStorage.setItem('jwtToken',token);
       setAuthorizationToken(token);
       window.location.reload();
+    },(error)=>{
+      console.log(error);
     })
   }
 
