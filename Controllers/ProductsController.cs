@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Antique.Models;
 using Antique.Context;
+using Antique.ViewModel;
+using static System.Net.Mime.MediaTypeNames;
+using System.IO;
 
 namespace antique_store.Controllers
 {
@@ -20,6 +23,7 @@ namespace antique_store.Controllers
         {
             _context = context;
         }
+
         [HttpGet]
         [Route("")]
         public async Task<ActionResult> GetProducts()
@@ -253,6 +257,7 @@ namespace antique_store.Controllers
             return Ok(model.ToList());
 
         }
+
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
@@ -273,6 +278,7 @@ namespace antique_store.Controllers
             }
             return Ok(model);
         }
+
         [HttpGet("GetByCategory/{category}")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductByCategory(string category)
         {
@@ -296,6 +302,7 @@ namespace antique_store.Controllers
 
             return Ok(model);
         }
+
         [HttpDelete]
         [Route("delete/{id}")]
         public ActionResult DeleteProduct(int id)
@@ -313,11 +320,19 @@ namespace antique_store.Controllers
                 return null;
             }
         }
+
         [HttpPut]
         [Route("add")]
-        public Product AddProduct(Product product)
+        public async Task<ActionResult<Product>> AddProduct([FromBody] ProductModel product)
         {
-            return null;
+
+            return new Product {
+                Name = product.Name,
+                Category = _context.Categories.FirstOrDefault(x => x.Name == product.Category),
+                Description = product.ImgsBase64[0],
+                Price = product.Price,
+
+            };
         }
 
     }

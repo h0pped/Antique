@@ -15,10 +15,24 @@ class AddNewProduct extends Component {
     this.state = {
       Auth: false,
       pictures: [],
-      pictureDataUrls: []
+      pictureDataUrls: [],
+      form: {}
     };
     this.onDrop = this.onDrop.bind(this);
   }
+  handleChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    this.setState({
+      form: {
+        ...this.state.form,
+        [name]: value
+      }
+    });
+    console.log(name, value);
+  }
+
   onDrop(pictureFiles, pictureDataURLs) {
     this.setState({
       pictures: this.state.pictures.concat(pictureFiles),
@@ -44,7 +58,7 @@ class AddNewProduct extends Component {
           <div class="field">
             <label class="label">Название</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Введите название товара"></input>
+              <input class="input" type="text" name="Name" placeholder="Введите название товара"  onChange={(e)=>this.handleChange(e)}></input>
             </div>
           </div>
 
@@ -53,8 +67,8 @@ class AddNewProduct extends Component {
             <label class="label">Рубрика</label>
             <div class="control">
               <div class="select">
-                <select>
-                  <option>Выберите рубрику</option>
+                <select name="Category" onChange={(e)=>this.handleChange(e)}>
+                  <option disabled>Выберите рубрику</option>
                   <option>Комоды</option>
                   <option>Часы</option>
                   <option>Столы и стулья</option>
@@ -68,7 +82,7 @@ class AddNewProduct extends Component {
           <div class="field">
             <label class="label">Описание товара</label>
             <div class="control">
-              <textarea class="textarea" placeholder="Введите описание товара"></textarea>
+              <textarea name="Description" class="textarea" placeholder="Введите описание товара" onChange={(e)=>this.handleChange(e)}></textarea>
             </div>
           </div>
           <div class="field">
@@ -77,40 +91,40 @@ class AddNewProduct extends Component {
               <button className="button">Выбрать файлы...</button>
             </div>
           </div>
-              <ImageUploader
-                withIcon={false}
-                buttonText='Выберите фото...'
-                onChange={this.onDrop}
-                imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                maxFileSize={5242880}
-                label=""
-              />
-              <div class="columns is-multiline is-mobile">
-              {pictureDataUrls.map(pic => (
-                <div class="column photocol is-one-third-dekstop is-two-tablet is-one-third-fullhd  is-full-mobile ">
-                  <img src={pic} alt="dick_pick" height="200px" width="250px"></img>
-                </div>))}
-              </div>
-              
+          <ImageUploader
+            withIcon={false}
+            buttonText='Выберите фото...'
+            onChange={this.onDrop}
+            imgExtension={['.jpg', '.gif', '.png', '.gif']}
+            maxFileSize={5242880}
+            label=""
+          />
+          <div class="columns is-multiline is-mobile">
+            {pictureDataUrls.map(pic => (
+              <div class="column photocol is-one-third-dekstop is-two-tablet is-one-third-fullhd  is-full-mobile ">
+                <img src={pic} alt="dick_pick" ></img>
+              </div>))}
+          </div>
 
 
-              <br></br>
 
-              <div class="field is-grouped">
-                <div class="control">
-                  <button class="button is-dark">Добавить</button>
-                </div>
-                <div class="control">
-                  <button class="button  is-dark">Отмена</button>
-                </div>
-              </div>
+          <br></br>
+
+          <div class="field is-grouped">
+            <div class="control">
+              <button class="button is-dark">Добавить</button>
             </div>
-            )
-          }
+            <div class="control">
+              <button class="button  is-dark">Отмена</button>
+            </div>
+          </div>
+        </div>
+      )
+    }
     else {
       return (<div>Пожалуйста войдите под своим аккаунтом, чтоб иметь возможноть добавить товар</div>)
-                }
-              }
-            }
-            
+    }
+  }
+}
+
 export default AddNewProduct;
