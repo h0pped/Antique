@@ -16,3 +16,6 @@ img{
 .column.photocol {
   display: flex;
 }
+.form-price{
+  width: 250px;
+}

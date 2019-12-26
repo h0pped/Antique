@@ -329,9 +329,8 @@ namespace antique_store.Controllers
             return new Product {
                 Name = product.Name,
                 Category = _context.Categories.FirstOrDefault(x => x.Name == product.Category),
-                Description = product.ImgsBase64[0],
+                Description = product.Description,
                 Price = product.Price,
-
             };
         }
 

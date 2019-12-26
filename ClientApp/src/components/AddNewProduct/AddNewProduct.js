@@ -3,7 +3,7 @@ import { getJwt, deleteJwt } from '../Login/helpers';
 import jwt from 'jsonwebtoken';
 import ImageUploader from 'react-images-upload';
 import './AddNewProduct.css'
-
+import axios from 'axios'
 
 import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
@@ -19,6 +19,7 @@ class AddNewProduct extends Component {
       form: {}
     };
     this.onDrop = this.onDrop.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(event) {
     const target = event.target;
@@ -33,10 +34,28 @@ class AddNewProduct extends Component {
     console.log(name, value);
   }
 
+  handleSubmit(e){
+    e.preventDefault();
+    
+    console.log(this.state.form)
+    axios.put("/api/Products/add",this.state.form).then(res=>{
+      console.log(res);
+     // const token = res.data.access_token;
+     // localStorage.setItem('jwtToken',token);
+     // setAuthorizationToken(token);
+     // window.location.reload();
+    },(error)=>{
+      console.log(error);
+    })
+  }
   onDrop(pictureFiles, pictureDataURLs) {
     this.setState({
       pictures: this.state.pictures.concat(pictureFiles),
-      pictureDataUrls: pictureDataURLs
+      pictureDataUrls: pictureDataURLs,
+        form: {
+          ...this.state.form,
+          ImgsBase64: pictureDataURLs
+        }
     });
     console.log("data: ", pictureDataURLs);
     console.log("from state: ", this.state.pictureDataUrls);
@@ -58,7 +77,7 @@ class AddNewProduct extends Component {
           <div class="field">
             <label class="label">Название</label>
             <div class="control">
-              <input class="input" type="text" name="Name" placeholder="Введите название товара"  onChange={(e)=>this.handleChange(e)}></input>
+              <input class="input " type="text" name="Name" placeholder="Введите название товара"  onChange={(e)=>this.handleChange(e)}></input>
             </div>
           </div>
 
@@ -67,7 +86,7 @@ class AddNewProduct extends Component {
             <label class="label">Рубрика</label>
             <div class="control">
               <div class="select">
-                <select name="Category" onChange={(e)=>this.handleChange(e)}>
+                <select name="Category" className="form-price" onChange={(e)=>this.handleChange(e)}>
                   <option disabled>Выберите рубрику</option>
                   <option>Комоды</option>
                   <option>Часы</option>
@@ -76,6 +95,12 @@ class AddNewProduct extends Component {
                   <option>Разноe</option>
                 </select>
               </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Цена</label>
+            <div class="control">
+              <input class="input  form-price" type="number" name="Price" placeholder="Введите цену товара" onChange={(e)=>this.handleChange(e)}></input>  
             </div>
           </div>
 
@@ -112,7 +137,7 @@ class AddNewProduct extends Component {
 
           <div class="field is-grouped">
             <div class="control">
-              <button class="button is-dark">Добавить</button>
+              <button onClick={(e)=>this.handleSubmit(e)} class="button is-dark">Добавить</button>
             </div>
             <div class="control">
               <button class="button  is-dark">Отмена</button>
