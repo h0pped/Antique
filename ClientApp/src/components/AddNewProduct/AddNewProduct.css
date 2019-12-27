@@ -9,9 +9,7 @@ img{
     padding: 5px;
     width: 150px;
 }
-.chooseFileButton{
-    background:black;
-}
+
 
 .column.photocol {
   display: flex;

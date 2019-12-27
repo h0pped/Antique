@@ -325,13 +325,31 @@ namespace antique_store.Controllers
         [Route("add")]
         public async Task<ActionResult<Product>> AddProduct([FromBody] ProductModel product)
         {
-
-            return new Product {
-                Name = product.Name,
-                Category = _context.Categories.FirstOrDefault(x => x.Name == product.Category),
-                Description = product.Description,
-                Price = product.Price,
-            };
+            Product p;
+            try
+            {
+                p = new Product
+                {
+                    Name = product.Name,
+                    Category = _context.Categories.FirstOrDefault(x => x.Name == product.Category),
+                    Description = product.Description,
+                    Price = product.Price,
+                    Photos = new List<Photo>
+                    {
+                        new Photo
+                        {
+                            Path="product.jpg"
+                        }
+                    }
+                };
+                _context.Products.Add(p);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+            return p;
         }
 
     }

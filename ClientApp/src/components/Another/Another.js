@@ -10,7 +10,7 @@ export default class Another extends Component{
             <div className="columns">
                 <div className='column is-full has-text-centered'>
                   <h2 className="is-size-3 new-arrivals-header has-text-dark">Разное</h2>
-                  <ProductService category="Разное"></ProductService>
+                  <ProductService category="Разноe"></ProductService>
                 </div>
             </div>
             </div>

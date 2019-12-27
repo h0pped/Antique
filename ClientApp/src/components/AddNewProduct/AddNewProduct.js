@@ -16,7 +16,9 @@ class AddNewProduct extends Component {
       Auth: false,
       pictures: [],
       pictureDataUrls: [],
-      form: {}
+      form: {
+        "Category":"Комоды"
+      }
     };
     this.onDrop = this.onDrop.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -111,12 +113,10 @@ class AddNewProduct extends Component {
             </div>
           </div>
           <div class="field">
-            <label class="label">Добавить фото</label>
+            <label class="label">Фото</label>
             <div class="control">
-              <button className="button">Выбрать файлы...</button>
-            </div>
-          </div>
-          <ImageUploader
+              {/* <button className="button">Выбрать файлы...</button> */}
+              <ImageUploader
             withIcon={false}
             buttonText='Выберите фото...'
             onChange={this.onDrop}
@@ -124,6 +124,9 @@ class AddNewProduct extends Component {
             maxFileSize={5242880}
             label=""
           />
+            </div>
+          </div>
+         
           <div class="columns is-multiline is-mobile">
             {pictureDataUrls.map(pic => (
               <div class="column photocol is-one-third-dekstop is-two-tablet is-one-third-fullhd  is-full-mobile ">
