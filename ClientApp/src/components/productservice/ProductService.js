@@ -2,7 +2,21 @@ import React, {Component} from 'react';
 import Products from './Product.js'
 import Pagination from '../Pagination/Pagination'
 
-export default class ProductService extends Component{
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
+import get from 'lodash.get';
+
+import * as cartActions from './reducer';
+
+const propTypes = {
+    cart: PropTypes.object.isRequired,
+    addProductToCart: PropTypes.func.isRequired,
+  };
+  
+  const defaultProps = {};
+
+class ProductService extends Component{
     constructor(){
         super();
         this.state = {
@@ -47,12 +61,30 @@ export default class ProductService extends Component{
                 }
                 else
                 this.setState({currentPage:pageNumber});
+                window.scrollTo(0, 0);
             } 
         return(
             <div>
-                <Products products={currentProducts} isloaded={isloaded} error={error}/>
+                <Products addCart={this.props.addProductToCart} products={currentProducts} isloaded={isloaded} error={error}/>
                 <Pagination productsPerPage={productsPerPage} totalProducts={products.length} paginate={paginate} currentPage={currentPage}/>
             </div>
             )
     }
 }
+const mapState = (state) => {
+    return {
+        cart: get(state, 'cart')
+    }
+  }
+  
+    const mapDispatch = {
+      addProductToCart: (model) => {
+        return cartActions.AddProductToCart(model);
+      }
+    }
+
+ProductService.propTypes = propTypes;
+ProductService.defaultProps = defaultProps;
+
+
+export default connect(mapState, mapDispatch)(ProductService);

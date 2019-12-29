@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import ProductService from './productservice/ProductService';
 
-export class Home extends Component {
+import { connect } from 'react-redux';
+
+class Home extends Component {
   constructor(){
     super();
     this.state = {
@@ -27,3 +29,4 @@ export class Home extends Component {
     );
   }
 }
+export default connect()(Home);

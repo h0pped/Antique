@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './Product.css'
 import {Link} from 'react-router-dom'
 
+
+
 class Products extends Component{
     render(){
         const {error, isloaded, products} = this.props;
@@ -33,6 +35,9 @@ class Products extends Component{
                         <footer className="card-footer">
                           <p className="card-footer-item">
                           <Link to={{pathname:`description/${product.id}`}}>Подробнее</Link>
+                          </p>
+                          <p className="card-footer-item">
+                          <a onClick={(e)=>{e.preventDefault(); this.props.addCart(product);}}>Купить</a>
                           </p>
                         </footer>
                       </div>

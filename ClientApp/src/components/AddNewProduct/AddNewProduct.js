@@ -41,11 +41,7 @@ class AddNewProduct extends Component {
     
     console.log(this.state.form)
     axios.put("/api/Products/add",this.state.form).then(res=>{
-      console.log(res);
-     // const token = res.data.access_token;
-     // localStorage.setItem('jwtToken',token);
-     // setAuthorizationToken(token);
-     // window.location.reload();
+      window.location = "/"
     },(error)=>{
       console.log(error);
     })
