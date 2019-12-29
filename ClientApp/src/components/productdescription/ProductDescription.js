@@ -2,6 +2,20 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import './ProductDescription.css'
 
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
+import get from 'lodash.get';
+
+import * as cartActions from '../productservice/reducer';
+
+const propTypes = {
+    cart: PropTypes.object.isRequired,
+    addProductToCart: PropTypes.func.isRequired,
+  };
+  
+  const defaultProps = {};
+
 class ProductDescription extends Component{
         constructor(props){
             super(props);
@@ -47,6 +61,7 @@ class ProductDescription extends Component{
                             <p className="title is-4">{productdata.name}</p>
                             <p className="subtitle is-6">{productdata.description}</p>
                             <p className="subtitle is-6 price">{productdata.price} грн.</p>
+                            <a onClick={(e)=>{e.preventDefault(); this.props.addProductToCart(productdata);}} class="button is-dark">Купить</a>
                           </div>
                       </div>
                       </div>
@@ -56,5 +71,20 @@ class ProductDescription extends Component{
         )}
 }
 }
+const mapState = (state) => {
+    return {
+        cart: get(state, 'cart')
+    }
+  }
+  
+    const mapDispatch = {
+      addProductToCart: (model) => {
+        return cartActions.AddProductToCart(model);
+      }
+    }
 
-export default ProductDescription;
+    ProductDescription.propTypes = propTypes;
+ProductDescription.defaultProps = defaultProps;
+
+
+export default connect(mapState, mapDispatch)(ProductDescription);
