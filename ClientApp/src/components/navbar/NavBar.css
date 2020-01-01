@@ -36,11 +36,22 @@
     padding: 8px;
     content: " ";
 }
+.cartButton{
+    margin-left: 60%;
+    min-width:75px;
+}
  
 @media only screen and (max-width:650px){
+    .breadcrumb{
+        height: 150px;
+    }
+    
     .breadcrumb li a {
         font-size: 0.8rem;
         min-height: 15px;
 
+    }
+    .cartButton{
+        margin-left: 0%;
     }
 } 
