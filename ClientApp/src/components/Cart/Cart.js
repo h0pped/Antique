@@ -65,11 +65,11 @@ class Cart extends Component {
                                 <h3 className="is-size-4">Общая стоимость: {this.props.cart.total.toFixed(2)}грн.</h3>
                     </div>
                     <div className="column">
-                    <Link to="/order"><button className="button is-dark"> <span class="icon">
+                    <Link to="/Заказ"><button className="button is-dark"> <span class="icon">
                                     <i class="fa fa-shopping-cart"></i>
                                 </span> <p> Оформить заказ</p></button></Link>
                     </div>
-                    <div className="column is-3 is-zero-tablet   is-zero-mobile">
+                    <div className="column is-3 is-zero-tablet is-zero-mobile">
                     </div>
                     </div>
                 </div>

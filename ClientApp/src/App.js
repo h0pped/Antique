@@ -12,6 +12,7 @@ import Another from './components/Another/Another';
 import Login from './components/Login/Login';
 import AddNewProduct from './components/AddNewProduct/AddNewProduct';
 import Cart from './components/Cart/Cart';
+import Order from './components/Order/Order';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -33,6 +34,7 @@ export default class App extends Component {
         <Route exact path='/description/:id' component={ProductDescription} />
         <Route exact path='/AddProduct' component={AddNewProduct} />
         <Route exact path='/Корзина' component={Cart} />
+        <Route exact path='/Заказ' component={Order} />
       </Layout>
     );
   }
