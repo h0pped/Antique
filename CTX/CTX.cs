@@ -17,5 +17,7 @@ namespace Antique.Context
         {
             //Database.EnsureCreated();
         }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderItem> Items { get; set; }
     }
 }

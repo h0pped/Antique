@@ -3,15 +3,17 @@ using System;
 using Antique.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Antique.Migrations
 {
     [DbContext(typeof(CTX))]
-    partial class CTXModelSnapshot : ModelSnapshot
+    [Migration("20200117205111_orders")]
+    partial class orders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,24 +57,6 @@ namespace Antique.Migrations
                     b.ToTable("tblOrders");
                 });
 
-            modelBuilder.Entity("Antique.Models.OrderItem", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("OrderID");
-
-                    b.Property<int>("ProductId");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("OrderID");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Items");
-                });
-
             modelBuilder.Entity("Antique.Models.Photo", b =>
                 {
                     b.Property<int>("ID")
@@ -100,11 +84,15 @@ namespace Antique.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int?>("OrderID");
+
                     b.Property<double>("Price");
 
                     b.HasKey("ID");
 
                     b.HasIndex("CategoryID");
+
+                    b.HasIndex("OrderID");
 
                     b.ToTable("Products");
                 });
@@ -270,19 +258,6 @@ namespace Antique.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Antique.Models.OrderItem", b =>
-                {
-                    b.HasOne("Antique.Models.Order", "Order")
-                        .WithMany("Items")
-                        .HasForeignKey("OrderID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Antique.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Antique.Models.Photo", b =>
                 {
                     b.HasOne("Antique.Models.Product")
@@ -295,6 +270,10 @@ namespace Antique.Migrations
                     b.HasOne("Antique.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryID");
+
+                    b.HasOne("Antique.Models.Order")
+                        .WithMany("Products")
+                        .HasForeignKey("OrderID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

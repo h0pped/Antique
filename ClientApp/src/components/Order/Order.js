@@ -42,11 +42,11 @@ class Order extends Component{
           Products: this.props.cart.products
         }
         console.log("order", order);
-        // axios.post("/api/Orders/add", order).then(res=>{
-        //   console.log("data",res.data);
-        //   this.setState({iscreated:true});
-        //   this.props.clearCart();
-        // });
+         axios.post("/api/Orders/", order).then(res=>{
+           console.log("data",res.data);
+           this.setState({iscreated:true});
+           this.props.clearCart();
+         });
         event.preventDefault();
       }
     render(){

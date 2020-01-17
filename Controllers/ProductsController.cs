@@ -252,8 +252,8 @@ namespace antique_store.Controllers
                 p.Category,
                 p.Photos
             });
-            
-            
+
+
             return Ok(model.ToList());
 
         }
