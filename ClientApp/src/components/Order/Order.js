@@ -61,13 +61,13 @@ class Order extends Component{
                
             )
         }
-        else if(this.props.cart.products.length==0){
+        /*else if(this.props.cart.products.length==0){
           return(
             <div className="container center-align">
                  <h4>Your cart is empty :c</h4>
                 </div>
           )
-        }
+        }*/
         else{
         return(
             <div className="column is-half is-offset-one-quarter has-background-white-ter">
@@ -115,11 +115,15 @@ class Order extends Component{
                  </div>
              </div>
 
-            <div className="row">
-                    <div className="col s6"><blockquote className="priceheader">Общая стоимость: {this.props.cart.total.toFixed(2)}грн.</blockquote></div>
-                    <div className="col s6"><button className="waves-effect waves-light btn green accent-4" onClick={(e)=>this.handleSubmit(e)}>Submit <i className="material-icons small">shopping_cart</i></button></div>
+            <div className="columns ">
+                    <div className="column "><blockquote className="priceheader">Общая стоимость: {this.props.cart.total.toFixed(2)}грн.</blockquote></div>
                 </div>
+                    <div className="columns  is-centered">
+
+                    <div className="column is-narrow"><button className="button is-dark" onClick={(e)=>this.handleSubmit(e)}>Подтвердить заказ</button></div>
           </div>
+          </div>
+
         );
     }
 }

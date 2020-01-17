@@ -40,7 +40,7 @@ class Cart extends Component {
                         <table className="table is-fullwidth is-bordered is-hoverable">
                             <thead>
                                 <tr>
-                                    <th>Артикль</th>
+                                    <th>Артикул</th>
                                     <th>Название</th>
                                     <th>Цена</th>
                                     <th>Удалить</th>
