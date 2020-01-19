@@ -44,7 +44,7 @@ namespace Antique.Controllers
         }
 
         // PUT: api/Orders/5
-        [HttpPut("{id}")]
+        [HttpPut("{id}")] 
         public async Task<IActionResult> PutOrder(int id, Order order)
         {
             if (id != order.ID)
@@ -82,7 +82,7 @@ namespace Antique.Controllers
             try
             {
                 List<OrderItem> products = new List<OrderItem>();
-                foreach(var x in order.Products)
+                foreach (var x in order.Products)
                 {
                     OrderItem a = new OrderItem
                     {
@@ -91,6 +91,7 @@ namespace Antique.Controllers
                     };
                     products.Add(a);
                 }
+
                 o = new Order
                 {
                     Name = order.Name,

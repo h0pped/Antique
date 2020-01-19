@@ -10,6 +10,9 @@ using Antique.Context;
 using Antique.ViewModel;
 using static System.Net.Mime.MediaTypeNames;
 using System.IO;
+using Antique.Helpers;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Hosting;
 
 namespace antique_store.Controllers
 {
@@ -18,10 +21,15 @@ namespace antique_store.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly CTX _context;
+        private readonly IConfiguration _configuration;
+        private readonly IHostingEnvironment _env;
 
-        public ProductsController(CTX context)
+
+        public ProductsController(CTX context, IHostingEnvironment env, IConfiguration configuration)
         {
             _context = context;
+            this._configuration = configuration;
+            this._env = env;
         }
 
         [HttpGet]
@@ -328,6 +336,15 @@ namespace antique_store.Controllers
             Product p;
             try
             {
+
+                string imageName = Path.GetRandomFileName() + ".jpg";
+
+                string pathSaveImages = InitStaticFiles
+                           .CreateImageByFileName(_env, _configuration,
+                                new string[] { "ImagesPath", "ImagesPathProduct" },
+                                imageName,
+                                product.ImgsBase64[0]);
+
                 p = new Product
                 {
                     Name = product.Name,
@@ -338,7 +355,7 @@ namespace antique_store.Controllers
                     {
                         new Photo
                         {
-                            Path="product.jpg"
+                            Path = imageName
                         }
                     }
                 };
