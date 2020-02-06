@@ -336,28 +336,30 @@ namespace antique_store.Controllers
             Product p;
             try
             {
+                List<Photo> added_photos = new List<Photo>();
+                foreach(var photo in product.ImgsBase64)
+                {
 
-                string imageName = Path.GetRandomFileName() + ".jpg";
+                    string imageName = Path.GetRandomFileName() + ".jpg";
 
-                string pathSaveImages = InitStaticFiles
-                           .CreateImageByFileName(_env, _configuration,
-                                new string[] { "ImagesPath", "ImagesPathProduct" },
-                                imageName,
-                                product.ImgsBase64[0]);
+                    string pathSaveImages = InitStaticFiles
+                               .CreateImageByFileName(_env, _configuration,
+                                    new string[] { "ImagesPath", "ImagesPathProduct" },
+                                    imageName,
+                                    photo);
+                    added_photos.Add(new Photo
+                    {
+                        Path = imageName
+                    });
 
+                }
                 p = new Product
                 {
                     Name = product.Name,
                     Category = _context.Categories.FirstOrDefault(x => x.Name == product.Category),
                     Description = product.Description,
                     Price = product.Price,
-                    Photos = new List<Photo>
-                    {
-                        new Photo
-                        {
-                            Path = imageName
-                        }
-                    }
+                    Photos = added_photos
                 };
                 _context.Products.Add(p);
                 _context.SaveChanges();

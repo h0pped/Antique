@@ -23,7 +23,7 @@ class Products extends Component{
                       <div className="card products-card">
                       <div className="card-image products-card-image">
                         <figure className="image products-image">
-                          <img className="products-img" src={'/images/'+product.photos[0].path} alt="Placeholder image"></img>
+                          <img className="products-img" src={'/images/photos/600_'+product.photos[0].path} alt="Placeholder image"></img>
                         </figure>
                       </div>
                       <div className="card-content">

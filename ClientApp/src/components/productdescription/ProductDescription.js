@@ -52,7 +52,7 @@ class ProductDescription extends Component{
 
                        {productdata.photos.map(photo=>(
                              <figure className="image">
-                                 <img  src={'/images/'+photo.path} alt="Placeholder image"></img>
+                                 <img  src={'/images/photos/1280_'+photo.path} alt="Placeholder image"></img>
                             </figure>
                           ))}
                       </div>
