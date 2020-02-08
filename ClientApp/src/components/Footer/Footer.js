@@ -34,22 +34,25 @@ class Footer extends Component{
 render(){
     const {Auth} = this.state;
     return(
+        <div>
+
         <footer className="footer is-primary">
         <div className="content has-text-centered is-primary">
             {
-             Auth? 
-             <div>
+                Auth? 
+                <div>
                  <Link to="/AddProduct"><a className="button is-dark">Добавить новый товар</a></Link>  
                  <br/>
                  <br/>
-            <Link to="/" onClick={(e)=>this.handleLogOff(e)}><a className="button is-dark">Выйти</a></Link>                
+                 <Link to="/" onClick={(e)=>this.handleLogOff(e)}><a className="button is-dark">Выйти</a></Link>                
                  </div>
             :<Link to="/Login"><a className="button is-dark">Войти</a></Link>
             
-            }
+        }
             
         </div>
       </footer>
+        </div>
     )
 }
    

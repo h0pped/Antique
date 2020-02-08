@@ -37,8 +37,11 @@
     content: " ";
 }
 .cartButton{
-    margin-left: 60%;
+    margin-left: 30%;
     min-width:100px;
+}
+.adminButton{
+    margin-right: 30%;
 }
  
 @media only screen and (max-width:650px){
