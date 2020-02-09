@@ -16,13 +16,12 @@ class OrdersTable extends Component {
 
 
                 return (<div>
-                    <div className='column is-full has-text-centered'>
+                    <div className='column is-full is-mobile has-text-centered'>
                         <h2 className="is-size-3 new-arrivals-header has-text-dark">Последние заказы</h2>
                         <div className='column is-full has-text-centered'>
                             <table className="table is-fullwidth is-bordered is-hoverable">
                                 <thead>
                                     <tr>
-                                        <th>Артикул</th>
                                         <th>Имя</th>
                                         <th>Город</th>
                                         <th>Почта</th>
@@ -33,7 +32,6 @@ class OrdersTable extends Component {
                                 <tbody>
                                     {orders.map((order, index) => (
                                         <tr key={index}>
-                                            <td>{order.id}</td>
                                             <td>{order.name + " " + order.surname}</td>
                                             <td>{order.city}</td>
                                             <td>{order.delivery + "\t№ " + order.deliveryNum}</td>
