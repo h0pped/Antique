@@ -17,7 +17,7 @@ class NavBarius extends Component {
                     <div className="column is-full has-text-centered">
                         <nav className="breadcrumb is-large is-centered" aria-label="breadcrumbs">
                             <ul>
-                            <li ><Link className="adminButton" to="/AdminPanel"><span class="icon">
+                            <li ><Link className="adminButton" to="/adminPanel"><span class="icon">
                                     <i class="fas fa-bars"></i>
                                 </span></Link></li>
                                 <li><Link to="/Комоды">Комоды</Link></li>
