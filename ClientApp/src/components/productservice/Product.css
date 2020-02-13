@@ -24,3 +24,11 @@
     right: 0;
     bottom: 0;
 }
+.deleteProductButton{
+    position: absolute;
+    float: right;
+    z-index: 9999;
+    right:-5%;
+    top:-3%;
+    color: black;
+}

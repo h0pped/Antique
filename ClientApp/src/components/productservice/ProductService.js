@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import get from 'lodash.get';
 
 import * as cartActions from './reducer';
+import { getJwt } from '../Login/helpers.js';
 
 const propTypes = {
     cart: PropTypes.object.isRequired,
@@ -25,7 +26,9 @@ class ProductService extends Component{
             isloaded: false,
             products:[],
             currentPage:1,
-            productsPerPage:12,   
+            productsPerPage:12,
+            
+            Auth:false
         }
     }
 
@@ -46,10 +49,15 @@ class ProductService extends Component{
         },(error)=>{
             this.setState({isloaded:true, error});
         });
+
+        const jwtt = getJwt();
+        if(jwtt){
+            this.setState({Auth:true});
+        }
     }
 
     render(){
-            const {products,isloaded,error,currentPage,productsPerPage} = this.state;
+            const {products,isloaded,error,currentPage,productsPerPage, Auth} = this.state;
             const indexOfLastProduct= currentPage*productsPerPage;
             const indexOfFirstProduct= indexOfLastProduct-productsPerPage;
             const currentProducts= products.slice(indexOfFirstProduct,indexOfLastProduct);
@@ -65,7 +73,7 @@ class ProductService extends Component{
             } 
         return(
             <div>
-                <Products addCart={this.props.addProductToCart} products={currentProducts} isloaded={isloaded} error={error}/>
+                <Products auth={Auth} addCart={this.props.addProductToCart} products={currentProducts} isloaded={isloaded} error={error}/>
                 <Pagination productsPerPage={productsPerPage} totalProducts={products.length} paginate={paginate} currentPage={currentPage}/>
             </div>
             )

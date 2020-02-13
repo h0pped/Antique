@@ -3,7 +3,7 @@ import ProductDescription from '../productdescription/ProductDescription';
 
 class OrdersTable extends Component {
     render() {
-        const { error, isloaded, orders } = this.props;
+        const { error, isloaded, orders,undone } = this.props;
         if (error) {
             return (
                 <div>Ошибка при загрузке товаров: {error.message}</div>
@@ -14,10 +14,10 @@ class OrdersTable extends Component {
         else {
             if (orders) {
 
-
                 return (<div>
                     <div className='column is-full is-mobile has-text-centered'>
-                        <h2 className="is-size-3 new-arrivals-header has-text-dark">Последние заказы</h2>
+                    <h2 className="is-size-3 new-arrivals-header has-text-dark">{undone?"Новые заказы":"Все заказы"}</h2>
+                        
                         <div className='column is-full has-text-centered'>
                             <table className="table is-fullwidth is-bordered is-hoverable">
                                 <thead>

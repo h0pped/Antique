@@ -10,7 +10,7 @@ class OrderService extends Component {
     constructor() {
         super();
         this.state = {
-            apiUrl: "/api/Orders",
+            apiUrl: "/api/Orders/",
             error: null,
             isloaded: false,
             orders: [],
@@ -20,14 +20,20 @@ class OrderService extends Component {
     }
 
     componentDidMount() {
+        console.log("PROPS",this.props);
         console.log(this.props.category);
-        let url = this.state.apiUrl;
-
-        if (this.props.category) {
-            console.log(this.props.category);
-            url = this.state.apiUrl;
-
-        }
+        
+        let url = this.state.apiUrl; 
+        
+        if(this.props.all == true)
+            {
+                url+="allOrders";
+                this.setState({apiUrl:url});
+            }
+            if(this.props.undone == true)
+            {
+                url+="undoneOrders";
+            }
         console.log(url);
 
         fetch(url)
@@ -54,8 +60,7 @@ class OrderService extends Component {
         }
         return (
             <div>
-               
-                    <OrdersTable orders={currentOrders} isloaded={isloaded} error={error} />
+                    <OrdersTable orders={currentOrders} isloaded={isloaded} error={error} all={this.props.all} undone={this.props.undone} />
                     <Pagination productsPerPage={OrdersPerPage} totalProducts={orders.length} paginate={paginate} currentPage={currentPage} />
                 </div>
 
