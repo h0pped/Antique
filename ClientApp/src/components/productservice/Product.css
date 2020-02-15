@@ -2,6 +2,7 @@
     min-width:390px;
     min-height: 500px;
     max-height: 500px;
+    border-radius: 10px;
 }
 .card .title{
     min-height: 52px;
@@ -24,11 +25,11 @@
     right: 0;
     bottom: 0;
 }
-.deleteProductButton{
+.tag{
     position: absolute;
     float: right;
     z-index: 9999;
-    right:-5%;
-    top:-3%;
+    right:-2%;
+    top:-1%;
     color: black;
 }

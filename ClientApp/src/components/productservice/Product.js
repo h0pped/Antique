@@ -6,13 +6,16 @@ import { Link } from 'react-router-dom'
 
 class Products extends Component {
   render() {
-    const { error, isloaded, products,auth } = this.props;
+    const { error, isloaded, products, auth } = this.props;
     if (error) {
       return (
         <div>Ошибка при загрузке товаров: {error.message}</div>
       )
     } else if (!isloaded) {
-      return <div>Загрузка...</div>;
+      return <div>
+                Загрузка...
+                <progress class="progress is-medium is-dark" max="100">45%</progress>
+      </div>;
     }
     else {
       return (
@@ -23,12 +26,10 @@ class Products extends Component {
               <div key={product.id} className="column is-one-third-dekstop is-two-tablet is-one-third-fullhd  is-full-mobile">
 
                 <div className="card products-card">
-                  {auth?<div>
-                    <a className="deleteProductButton"><span class="icon is-large	">
-                      <i class="fas fa-2x fa-trash-alt"></i>
-                    </span></a>
-                    </div>:null}
-                    
+                  {auth ? <div>
+                    <span class="tag is-black">Удалить</span>
+                  </div> : null}
+
                   <div className="card-image products-card-image">
                     <figure className="image products-image">
                       <img className="products-img" src={'/images/photos/600_' + product.photos[0].path} alt="Placeholder image"></img>

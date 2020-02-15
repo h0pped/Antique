@@ -1,6 +1,18 @@
 .pagination-link.active{
     background-color: black;
     color:white;
+
+}
+.pagination-link{
+    background-color: white;
+
+}
+.pagination-previous{
+    background-color: white;
+}
+.pagination-next{
+    background-color: white;
+
 }
 .pagination{
     margin-top: 50px;

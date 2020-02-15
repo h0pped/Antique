@@ -1,7 +1,7 @@
 
 
 .breadcrumb {
-    background-color: #f9f9f9;
+    background-color: rgb(228, 228, 228);
     height: 100px;
     display: flex;
   align-items: center
@@ -22,7 +22,7 @@
 .breadcrumb li a {
     min-height: 50px;
     color:black;
-    background: #f9f9f9;    
+    background-color: rgb(228, 228, 228);   
     font-size: 1.5rem;
     transition: background-color 400ms linear;
 

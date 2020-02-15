@@ -13,6 +13,7 @@ img{
 
 .column.photocol {
   display: flex;
+  background-color: white;
 }
 .form-price{
   width: 250px;
