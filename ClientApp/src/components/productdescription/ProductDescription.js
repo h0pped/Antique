@@ -39,8 +39,11 @@ class ProductDescription extends Component{
         const handleOnDragStart = e => e.preventDefault()
         const{isloading, productdata,id} = this.state
         if(isloading){
-            return(
-                <h2 className="text-center">Loading...</h2>
+            return(<div>
+
+                Загрузка...
+                <progress class="progress is-medium is-dark" max="100">45%</progress>
+            </div>
             )
         }
         else{

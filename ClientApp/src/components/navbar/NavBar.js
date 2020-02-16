@@ -4,12 +4,23 @@ import { Link } from 'react-router-dom'
 import { connect } from "react-redux";
 
 import get from 'lodash.get';
+import { getJwt } from '../Login/helpers';
 
 class NavBarius extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            Auth: false
+        };
+    }
+    componentDidMount() {
+        const jwtt = getJwt();
+        if (jwtt) {
+            this.setState({ Auth: true });
+        }
     }
     render() {
+        const { Auth } = this.state;
         return (
             <div>
 
@@ -17,9 +28,9 @@ class NavBarius extends Component {
                     <div className="column is-full has-text-centered">
                         <nav className="breadcrumb is-large is-centered" aria-label="breadcrumbs">
                             <ul>
-                            <li ><Link className="adminButton" to="/adminPanel"><span class="icon">
+                                {Auth ? <li ><Link className="adminButton" to="/adminPanel"><span class="icon">
                                     <i class="fas fa-bars"></i>
-                                </span></Link></li>
+                                </span></Link></li> : null}
                                 <li><Link to="/Комоды">Комоды</Link></li>
                                 <li><Link to="/МягкаяЧасть">Мягкая часть</Link></li>
                                 <li ><Link to="/СтолыИСтулья">Столы и Стулья</Link></li>
@@ -28,10 +39,10 @@ class NavBarius extends Component {
                                 <li ><Link className="cartButton" to="/Корзина"><span class="icon">
                                     <i class="fas fa-shopping-cart"></i>
                                 </span>{this.props.cart.count}</Link></li>
-                 </ul>
-                </nav>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
-            </div>   
             </div >
         )
     }

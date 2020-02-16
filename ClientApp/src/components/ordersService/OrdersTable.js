@@ -9,7 +9,8 @@ class OrdersTable extends Component {
                 <div>Ошибка при загрузке товаров: {error.message}</div>
             )
         } else if (!isloaded) {
-            return <div>Загрузка...</div>;
+            return <div className=" is-size-3 has-text-centered">Загрузка...
+            <progress class="progress is-medium is-dark" max="100">45%</progress></div>;
         }
         else {
             if (orders) {

@@ -68,12 +68,12 @@ class adminPanel extends Component {
                     </div>) : null}
                     {this.state.is_add_product ? (<div>
                         <div className="columns">
-                            <div className="column is-full">
-                                <h3>Добавить новый товар</h3>
+                            <div className="column is-full has-text-centered">
+                            <h2 className="is-size-3 new-arrivals-header has-text-dark">Добавить новый товар</h2>
                             </div>
                         </div>
                         <div className="column">
-                            <AddNewProduct/>
+                            <AddNewProduct/>    
                         </div>
                     </div>
                     ) : null}
