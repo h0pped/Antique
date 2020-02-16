@@ -17,7 +17,7 @@ class AddNewProduct extends Component {
       pictures: [],
       pictureDataUrls: [],
       form: {
-        "Category":"Комоды"
+        "Category": "Комоды"
       }
     };
     this.onDrop = this.onDrop.bind(this);
@@ -36,13 +36,13 @@ class AddNewProduct extends Component {
     console.log(name, value);
   }
 
-  handleSubmit(e){
+  handleSubmit(e) {
     e.preventDefault();
-    
+
     console.log(this.state.form)
-    axios.put("/api/Products/add",this.state.form).then(res=>{
+    axios.put("/api/Products/add", this.state.form).then(res => {
       window.location = "/"
-    },(error)=>{
+    }, (error) => {
       console.log(error);
     })
   }
@@ -50,10 +50,10 @@ class AddNewProduct extends Component {
     this.setState({
       pictures: this.state.pictures.concat(pictureFiles),
       pictureDataUrls: pictureDataURLs,
-        form: {
-          ...this.state.form,
-          ImgsBase64: pictureDataURLs
-        }
+      form: {
+        ...this.state.form,
+        ImgsBase64: pictureDataURLs
+      }
     });
     console.log("data: ", pictureDataURLs);
     console.log("from state: ", this.state.pictureDataUrls);
@@ -75,7 +75,7 @@ class AddNewProduct extends Component {
           <div class="field">
             <label class="label">Название</label>
             <div class="control">
-              <input class="input " type="text" name="Name" placeholder="Введите название товара"  onChange={(e)=>this.handleChange(e)}></input>
+              <input class="input " type="text" name="Name" placeholder="Введите название товара" onChange={(e) => this.handleChange(e)}></input>
             </div>
           </div>
 
@@ -84,7 +84,7 @@ class AddNewProduct extends Component {
             <label class="label">Рубрика</label>
             <div class="control">
               <div class="select">
-                <select name="Category" className="form-price" onChange={(e)=>this.handleChange(e)}>
+                <select name="Category" className="form-price" onChange={(e) => this.handleChange(e)}>
                   <option disabled>Выберите рубрику</option>
                   <option>Комоды</option>
                   <option>Часы</option>
@@ -98,14 +98,14 @@ class AddNewProduct extends Component {
           <div class="field">
             <label class="label">Цена</label>
             <div class="control">
-              <input class="input  form-price" type="number" name="Price" placeholder="Введите цену товара" onChange={(e)=>this.handleChange(e)}></input>  
+              <input class="input  form-price" type="number" name="Price" placeholder="Введите цену товара" onChange={(e) => this.handleChange(e)}></input>
             </div>
           </div>
 
           <div class="field">
             <label class="label">Описание товара</label>
             <div class="control">
-              <textarea name="Description" class="textarea" placeholder="Введите описание товара" onChange={(e)=>this.handleChange(e)}></textarea>
+              <textarea name="Description" class="textarea" placeholder="Введите описание товара" onChange={(e) => this.handleChange(e)}></textarea>
             </div>
           </div>
           <div class="field">
@@ -113,16 +113,16 @@ class AddNewProduct extends Component {
             <div class="control">
               {/* <button className="button">Выбрать файлы...</button> */}
               <ImageUploader
-            withIcon={false}
-            buttonText='Выберите фото...'
-            onChange={this.onDrop}
-            imgExtension={['.jpg', '.gif', '.png', '.gif']}
-            maxFileSize={5242880}
-            label=""
-          />
+                withIcon={false}
+                buttonText='Выберите фото...'
+                onChange={this.onDrop}
+                imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                maxFileSize={5242880}
+                label=""
+              />
             </div>
           </div>
-         
+
           <div class="columns is-multiline is-mobile">
             {pictureDataUrls.map(pic => (
               <div class="column photocol is-one-third-dekstop is-two-tablet is-one-third-fullhd  is-full-mobile ">
@@ -136,7 +136,7 @@ class AddNewProduct extends Component {
 
           <div class="field is-grouped">
             <div class="control">
-              <button onClick={(e)=>this.handleSubmit(e)} class="button is-dark">Добавить</button>
+              <button onClick={(e) => this.handleSubmit(e)} class="button is-dark">Добавить</button>
             </div>
             <div class="control">
               <button class="button  is-dark">Отмена</button>
@@ -146,7 +146,9 @@ class AddNewProduct extends Component {
       )
     }
     else {
-      return (<div>Пожалуйста войдите под своим аккаунтом, чтоб иметь возможноть добавить товар</div>)
+      return (<div>
+          Пожалуйста войдите под своим аккаунтом администратора, чтоб иметь доступ к этой странице. 
+        </div>)
     }
   }
 }

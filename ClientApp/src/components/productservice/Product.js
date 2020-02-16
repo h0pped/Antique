@@ -9,7 +9,7 @@ class Products extends Component {
     const { error, isloaded, products, auth } = this.props;
     if (error) {
       return (
-        <div>Ошибка при загрузке товаров: {error.message}</div>
+        <div>Ошибка при загрузке: {error.message}</div>
       )
     } else if (!isloaded) {
       return <div>

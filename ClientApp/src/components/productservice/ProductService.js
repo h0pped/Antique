@@ -27,7 +27,6 @@ class ProductService extends Component{
             products:[],
             currentPage:1,
             productsPerPage:12,
-            
             Auth:false
         }
     }

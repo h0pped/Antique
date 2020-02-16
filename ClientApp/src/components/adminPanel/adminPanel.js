@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import OrderService from '../ordersService/OrderService';
 import { Redirect } from 'react-router-dom';
-import { getJwt  } from '../Login/helpers';
+import { getJwt } from '../Login/helpers';
+import AddNewProduct from '../AddNewProduct/AddNewProduct';
 
 class adminPanel extends Component {
     constructor() {
@@ -11,6 +12,7 @@ class adminPanel extends Component {
             is_all_orders: false,
             is_statistics: false,
             is_settings: false,
+            is_add_product: false,
             Auth: false
         }
     }
@@ -19,6 +21,7 @@ class adminPanel extends Component {
         if (jwtt) {
             this.setState({ Auth: true })
         }
+
     }
     render() {
         const { Auth } = this.state
@@ -35,12 +38,13 @@ class adminPanel extends Component {
                             <li>
                                 <a>Заказы</a>
                                 <ul>
-                                    <li><a className={(this.state.is_new_orders ? "is-active" : null)} onClick={(e) => { e.preventDefault(); this.setState({ is_new_orders: true, is_all_orders: false, is_statistics: false, is_settings: false }) }}>Новые заказы</a></li>
-                                    <li><a className={(this.state.is_all_orders ? "is-active" : null)} onClick={(e) => { e.preventDefault(); this.setState({ is_new_orders: false, is_all_orders: true, is_statistics: false, is_settings: false }) }}>Все заказы</a></li>
+                                    <li><a className={(this.state.is_new_orders ? "is-active" : null)} onClick={(e) => { e.preventDefault(); this.setState({ is_new_orders: true, is_all_orders: false, is_statistics: false, is_settings: false, is_add_product: false }) }}>Новые заказы</a></li>
+                                    <li><a className={(this.state.is_all_orders ? "is-active" : null)} onClick={(e) => { e.preventDefault(); this.setState({ is_new_orders: false, is_all_orders: true, is_statistics: false, is_settings: false, is_add_product: false }) }}>Все заказы</a></li>
                                 </ul>
                             </li>
-                            <li><a className={(this.state.is_statistics ? "is-active" : null)} onClick={(e) => { e.preventDefault(); this.setState({ is_new_orders: false, is_all_orders: false, is_statistics: true, is_settings: false }) }}>Статистика</a></li>
-                            <li><a className={(this.state.is_settings ? "is-active" : null)} onClick={(e) => { e.preventDefault(); this.setState({ is_new_orders: false, is_all_orders: false, is_statistics: false, is_settings: true }) }}>Настройки</a></li>
+                            <li><a className={(this.state.is_add_product ? "is-active" : null)} onClick={(e) => { e.preventDefault(); this.setState({ is_new_orders: false, is_all_orders: false, is_statistics: false, is_settings: false, is_add_product: true }) }}>Добавить новый товар</a></li>
+                            <li><a className={(this.state.is_statistics ? "is-active" : null)} onClick={(e) => { e.preventDefault(); this.setState({ is_new_orders: false, is_all_orders: false, is_statistics: true, is_settings: false, is_add_product: false }) }}>Статистика</a></li>
+                            <li><a className={(this.state.is_settings ? "is-active" : null)} onClick={(e) => { e.preventDefault(); this.setState({ is_new_orders: false, is_all_orders: false, is_statistics: false, is_settings: true, is_add_product: false }) }}>Настройки</a></li>
                         </ul>
 
 
@@ -62,12 +66,23 @@ class adminPanel extends Component {
                     {this.state.is_settings ? (<div>
                         <h3>Настройки</h3>
                     </div>) : null}
+                    {this.state.is_add_product ? (<div>
+                        <div className="columns">
+                            <div className="column is-full">
+                                <h3>Добавить новый товар</h3>
+                            </div>
+                        </div>
+                        <div className="column">
+                            <AddNewProduct/>
+                        </div>
+                    </div>
+                    ) : null}
                 </div>
             </div>)
         }
-        else{
-            return(<div>
-                <Redirect to="/Login"> </Redirect>
+        else {
+            return (<div>
+                Пожалуйста войдите под своим аккаунтом администратора, чтоб иметь доступ к этой странице.
             </div>)
         }
 

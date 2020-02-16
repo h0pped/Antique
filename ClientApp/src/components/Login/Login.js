@@ -58,7 +58,7 @@ class Login extends Component{
         <div class="column is-5-tablet is-4-desktop is-3-widescreen">
           <form action="" class="box">
             <div class="field">
-              <label for="" class="label">Логин</label>
+              <label for="" class="label">Авторизация</label>
               <div class="control has-icons-left">
                 <input type="login" name="Name" placeholder="anime" class="input" required onChange={(e)=>this.handleChange(e)}></input>
                 <span class="icon is-small is-left">

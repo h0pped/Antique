@@ -41,15 +41,10 @@ render(){
             {
                 Auth? 
                 <div>
-                 <Link to="/AddProduct"><a className="button is-dark">Добавить новый товар</a></Link>  
-                 <br/>
-                 <br/>
-                 <Link to="/" onClick={(e)=>this.handleLogOff(e)}><a className="button is-dark">Выйти</a></Link>                
+                 <Link to="/" onClick={(e)=>this.handleLogOff(e)}><a className="button is-dark">Выйти из аккаунта</a></Link>                
                  </div>
-            :<Link to="/Login"><a className="button is-dark">Войти</a></Link>
-            
+            :<Link to="/Login"><a className="button is-dark">Войти в аккаунт</a></Link>
         }
-            
         </div>
       </footer>
         </div>

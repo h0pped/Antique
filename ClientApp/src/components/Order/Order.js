@@ -44,31 +44,29 @@ class Order extends Component{
         console.log("order", order);
          axios.post("/api/Orders/", order).then(res=>{
            console.log("data",res.data);
-           this.setState({iscreated:true});
+           this.setState({orderid:res.data.id,iscreated:true})
            this.props.clearCart();
          });
         event.preventDefault();
       }
     render(){
         if(this.state.iscreated==true ){
+          const {orderid} = this.state 
             return(
               <div className="container center-align">
-              <h4>Your order was succesfully created!</h4>
+              <h4>Ваш заказ успешно создан!</h4>
                 <h5>
-                  Our manager will communicate with you as soon as posible!
+                  В ближайшее время с вами свяжется наш менеджер!
+                  </h5> 
+                  <br></br>
+                  <h5>
+                    Уникальный номер заказа: {orderid}
                   </h5> 
             </div>
                
             )
         }
-        /*else if(this.props.cart.products.length==0){
-          return(
-            <div className="container center-align">
-                 <h4>Your cart is empty :c</h4>
-                </div>
-          )
-        }*/
-        else{
+        else if(this.props.cart.products.length!=0){
         return(
             <div className="column is-half is-offset-one-quarter has-background-white-ter">
             <div class="field">
@@ -125,6 +123,9 @@ class Order extends Component{
           </div>
 
         );
+    }
+    else{
+      return(<div>Ваша корзина пустая!</div>)
     }
 }
 }
