@@ -29,7 +29,7 @@ class NavBarius extends Component {
                         <nav className="breadcrumb is-large is-centered" aria-label="breadcrumbs">
                             <ul>
                                 {Auth ? <li ><Link className="adminButton" to="/adminPanel"><span class="icon">
-                                    <i class="fas fa-bars"></i>
+                                    <i class="fas fa-user-cog"></i>
                                 </span></Link></li> : null}
                                 <li><Link to="/Комоды">Комоды</Link></li>
                                 <li><Link to="/МягкаяЧасть">Мягкая часть</Link></li>
