@@ -23,11 +23,20 @@ class ProductService extends Component {
             apiUrl: "/api/Products",
             error: null,
             isloaded: false,
+
             products: [],
             currentPage: 1,
             productsPerPage: 12,
+
+            search: "",
+
             Auth: false
+
+
         }
+    }
+    updateSearch(event) {
+        this.setState({ search: event.target.value });
     }
 
     componentDidMount() {
@@ -59,10 +68,20 @@ class ProductService extends Component {
         const { products, isloaded, error, currentPage, productsPerPage, Auth } = this.state;
         const indexOfLastProduct = currentPage * productsPerPage;
         const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-        const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
-        console.log(products);
+        console.log("Products: ", products);
+
+        let filteredProducts = products.filter(product => {
+            return product.name.toLowerCase().indexOf(this.state.search.toLowerCase()) != -1;
+        })
+
+
+
+
+        const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+
+        console.log(filteredProducts);
         const paginate = (pageNumber) => {
-            if (pageNumber < 1 || pageNumber > Math.ceil(products.length / productsPerPage)) {
+            if (pageNumber < 1 || pageNumber > Math.ceil(filteredProducts.length / productsPerPage)) {
                 return;
             }
             else
@@ -74,15 +93,14 @@ class ProductService extends Component {
                 <div class="field">
                     <label class="label">Поиск</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input class="input is-success" type="text" placeholder="Поиск товаров" value=""></input>
+                        <input class="input" type="text" placeholder="Поиск товаров" value={this.state.search} onChange={this.updateSearch.bind(this)}></input>
                         <span class="icon is-small is-left">
                             <i class="fas fa-search"></i>
                         </span>
-
                     </div>
                 </div>
                 <Products auth={Auth} addCart={this.props.addProductToCart} products={currentProducts} isloaded={isloaded} error={error} />
-                <Pagination productsPerPage={productsPerPage} totalProducts={products.length} paginate={paginate} currentPage={currentPage} />
+                <Pagination productsPerPage={productsPerPage} totalProducts={filteredProducts.length} paginate={paginate} currentPage={currentPage} />
             </div>
         )
     }
