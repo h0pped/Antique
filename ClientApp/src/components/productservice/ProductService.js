@@ -9,6 +9,7 @@ import get from 'lodash.get';
 
 import * as cartActions from './reducer';
 import { getJwt } from '../Login/helpers.js';
+import ModalWindow from '../ModalWindow/ModalWindow.js';
 
 const propTypes = {
     cart: PropTypes.object.isRequired,
@@ -99,6 +100,7 @@ class ProductService extends Component {
                         </span>
                     </div>
                 </div>
+                <ModalWindow isVisible={false}></ModalWindow>
                 <Products auth={Auth} addCart={this.props.addProductToCart} products={currentProducts} isloaded={isloaded} error={error} />
                 <Pagination productsPerPage={productsPerPage} totalProducts={filteredProducts.length} paginate={paginate} currentPage={currentPage} />
             </div>

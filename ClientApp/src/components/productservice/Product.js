@@ -3,9 +3,27 @@ import './Product.css'
 import { Link } from 'react-router-dom'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
+import ModalWindow from '../ModalWindow/ModalWindow'
 
 
 class Products extends Component {
+  constructor(){
+    super()
+    this.state={
+      product:null,
+      isVisible:false
+    }
+    this.handleDeleteProduct = this.handleDeleteProduct.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    
+  }
+  closeModal(){
+    this.setState({isVisible:false})
+  }
+  handleDeleteProduct(product){
+    console.log("DeleteProduct: ",product)
+    this.setState({product:this.product, isVisible:true})
+    }
   render() {
     const { error, isloaded, products, auth } = this.props;
     if (error) {
@@ -21,14 +39,16 @@ class Products extends Component {
     else {
       return (
         <div>
+                <ModalWindow closeModal={this.closeModal} isVisible={this.state.isVisible} product={this.state.product}></ModalWindow>
+
           <div className="columns is-multiline is-mobile">
 
-            {products.map(product => (
+            {products.map((product,index) => (
               <div key={product.id} className="column is-one-third-dekstop is-two-tablet is-one-third-fullhd  is-full-mobile">
 
                 <div className="card products-card">
                   {auth ? <div>
-                    <span class="tag is-black">Удалить</span>
+                    <span class="tag is-black" onClick={()=>this.handleDeleteProduct(product)}>Удалить</span>
                   </div> : null}
 
                   <div className="card-image products-card-image">

@@ -21,12 +21,13 @@ img{
 .tag{
   position: absolute;
   float: right;
-  z-index: 9999;
+  z-index: 2;
   right:-2%;
   top:-1%;
   color: black;
   pointer-events: all;
   border-width: 0px;
+
 }
 .tag-div{
   position: relative;

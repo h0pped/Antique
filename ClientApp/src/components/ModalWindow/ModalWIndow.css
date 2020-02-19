@@ -1,0 +1,7 @@
+.modal{
+    z-index: 99999999999;
+}
+.modal-background{
+    position: absolute;
+    z-index: 99999999999;
+}
