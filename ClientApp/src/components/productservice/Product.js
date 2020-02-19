@@ -32,7 +32,7 @@ class Products extends Component {
                   </div> : null}
 
                   <div className="card-image products-card-image">
-                    <Zoom zoomMargin={0}>
+                    <Zoom zoomMargin={30}>
                     <figure className="image products-image">
                       <img className="products-img" src={'/images/photos/600_' + product.photos[0].path} alt="Placeholder image"></img>
                     </figure>

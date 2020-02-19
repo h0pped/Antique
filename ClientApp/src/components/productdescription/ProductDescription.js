@@ -59,8 +59,7 @@ class ProductDescription extends Component {
 
                             {productdata.photos.map(photo => (
                                 <div>
-
-                                <Zoom>
+                                <Zoom zoomMargin={30}>
                                 <figure className="image">
                                     <img src={'/images/photos/1280_' + photo.path} alt="Placeholder image"></img>
                                 </figure>

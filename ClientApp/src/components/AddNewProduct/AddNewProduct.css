@@ -25,4 +25,9 @@ img{
   right:-2%;
   top:-1%;
   color: black;
+  pointer-events: all;
+  border-width: 0px;
+}
+.tag-div{
+  position: relative;
 }

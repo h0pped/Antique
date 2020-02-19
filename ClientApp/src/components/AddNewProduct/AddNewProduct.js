@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
-import { getJwt, deleteJwt } from '../Login/helpers';
-import jwt from 'jsonwebtoken';
+import { getJwt } from '../Login/helpers';
 import ImageUploader from 'react-images-upload';
 import './AddNewProduct.css'
 import axios from 'axios'
+
+
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
 import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
@@ -142,10 +145,13 @@ class AddNewProduct extends Component {
             {pictureDataUrls.map((pic,index) => (
               <div key={index} className="column photocol is-one-third-dekstop is-two-tablet is-one-third-fullhd  is-full-mobile ">
                    <div>
-                     <button onClick={()=>this.handleDelete(index)}>
-                    Delete
-                    </button>
+                     <div className="tag-div">
+
+                    <button class="tag is-black" onClick={()=>this.handleDelete(index)}>Удалить</button>
+                    </div>
+                    <Zoom zoomMargin={30}>
                    <img src={pic} alt="dick_pick" ></img>
+                    </Zoom>
                    </div>
               </div>))}
           </div>
