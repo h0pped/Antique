@@ -18,3 +18,11 @@ img{
 .form-price{
   width: 250px;
 }
+.tag{
+  position: absolute;
+  float: right;
+  z-index: 9999;
+  right:-2%;
+  top:-1%;
+  color: black;
+}

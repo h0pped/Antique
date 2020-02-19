@@ -2,11 +2,17 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import './ProductDescription.css'
 
+
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
+
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import get from 'lodash.get';
 import * as cartActions from '../productservice/reducer';
+
+
 const propTypes = {
     cart: PropTypes.object.isRequired,
     addProductToCart: PropTypes.func.isRequired,
@@ -52,9 +58,14 @@ class ProductDescription extends Component {
                         <div className="card-image">
 
                             {productdata.photos.map(photo => (
+                                <div>
+
+                                <Zoom>
                                 <figure className="image">
                                     <img src={'/images/photos/1280_' + photo.path} alt="Placeholder image"></img>
                                 </figure>
+                                </Zoom>
+                                </div>
                             ))}
                         </div>
                         <div className="card-content">

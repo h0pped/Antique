@@ -126,7 +126,10 @@ class AddNewProduct extends Component {
           <div class="columns is-multiline is-mobile">
             {pictureDataUrls.map(pic => (
               <div class="column photocol is-one-third-dekstop is-two-tablet is-one-third-fullhd  is-full-mobile ">
+                 <div>
+                 <span class="tag is-black">Удалить</span>
                 <img src={pic} alt="dick_pick" ></img>
+                   </div>
               </div>))}
           </div>
 
