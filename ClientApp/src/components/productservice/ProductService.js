@@ -39,6 +39,7 @@ class ProductService extends Component {
     updateSearch(event) {
         this.setState({ search: event.target.value });
     }
+    
 
     componentDidMount() {
         console.log(this.props.category);
@@ -100,8 +101,7 @@ class ProductService extends Component {
                         </span>
                     </div>
                 </div>
-                <ModalWindow isVisible={false}></ModalWindow>
-                <Products auth={Auth} addCart={this.props.addProductToCart} products={currentProducts} isloaded={isloaded} error={error} />
+                <Products auth={Auth} addCart={this.props.addProductToCart} products={currentProducts} isloaded={isloaded} error={error} url={this.state.apiUrl} />
                 <Pagination productsPerPage={productsPerPage} totalProducts={filteredProducts.length} paginate={paginate} currentPage={currentPage} />
             </div>
         )

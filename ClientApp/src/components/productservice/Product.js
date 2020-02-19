@@ -4,25 +4,35 @@ import { Link } from 'react-router-dom'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import ModalWindow from '../ModalWindow/ModalWindow'
+import axios from 'axios';
 
 
 class Products extends Component {
   constructor(){
     super()
     this.state={
-      product:null,
+      product:{},
       isVisible:false
     }
-    this.handleDeleteProduct = this.handleDeleteProduct.bind(this);
+    this.handleDeleteProductModal = this.handleDeleteProductModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.deleteProduct = this.deleteProduct.bind(this);
     
   }
   closeModal(){
     this.setState({isVisible:false})
   }
-  handleDeleteProduct(product){
-    console.log("DeleteProduct: ",product)
-    this.setState({product:this.product, isVisible:true})
+  deleteProduct(){
+    let url = this.props.url;
+    url+="/delete/"+this.state.product.id;
+    console.log("Delete product url: "+url);
+    axios.delete(url).then(data=>{
+      window.location.reload();
+    }).catch(error=>console.log(error));
+  }
+  handleDeleteProductModal(prod){
+    console.log("DeleteProduct: ",prod)
+    this.setState({product:prod, isVisible:true})
     }
   render() {
     const { error, isloaded, products, auth } = this.props;
@@ -39,7 +49,7 @@ class Products extends Component {
     else {
       return (
         <div>
-                <ModalWindow closeModal={this.closeModal} isVisible={this.state.isVisible} product={this.state.product}></ModalWindow>
+                <ModalWindow closeModal={this.closeModal} isVisible={this.state.isVisible} product={this.state.product} deleteProduct={this.deleteProduct}></ModalWindow>
 
           <div className="columns is-multiline is-mobile">
 
@@ -48,7 +58,7 @@ class Products extends Component {
 
                 <div className="card products-card">
                   {auth ? <div>
-                    <span class="tag is-black" onClick={()=>this.handleDeleteProduct(product)}>Удалить</span>
+                    <span class="tag is-black" onClick={()=>this.handleDeleteProductModal(product)}>Удалить</span>
                   </div> : null}
 
                   <div className="card-image products-card-image">
