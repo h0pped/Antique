@@ -22,6 +22,18 @@ class AddNewProduct extends Component {
     };
     this.onDrop = this.onDrop.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+  handleDelete(id) {
+    console.log("Delete photo: ",id)
+    let pictures = this.state.pictureDataUrls;
+    pictures.splice(id,1);
+    this.setState({
+      pictureDataUrls:pictures
+    })
+    this.setState({
+
+    })
   }
   handleChange(event) {
     const target = event.target;
@@ -58,6 +70,9 @@ class AddNewProduct extends Component {
     console.log("data: ", pictureDataURLs);
     console.log("from state: ", this.state.pictureDataUrls);
   }
+  
+  
+  
   componentDidMount() {
     const jwtt = getJwt();
     if (jwtt) {
@@ -65,8 +80,8 @@ class AddNewProduct extends Component {
       console.log("JWT add new product-->", jwtt);
       console.log("AUTH add new product:", this.state.Auth);
     }
-
   }
+
   render() {
     const { Auth, pictureDataUrls } = this.state;
     if (Auth) {
@@ -124,11 +139,13 @@ class AddNewProduct extends Component {
           </div>
 
           <div class="columns is-multiline is-mobile">
-            {pictureDataUrls.map(pic => (
-              <div class="column photocol is-one-third-dekstop is-two-tablet is-one-third-fullhd  is-full-mobile ">
-                 <div>
-                 <span class="tag is-black">Удалить</span>
-                <img src={pic} alt="dick_pick" ></img>
+            {pictureDataUrls.map((pic,index) => (
+              <div key={index} className="column photocol is-one-third-dekstop is-two-tablet is-one-third-fullhd  is-full-mobile ">
+                   <div>
+                     <button onClick={()=>this.handleDelete(index)}>
+                    Delete
+                    </button>
+                   <img src={pic} alt="dick_pick" ></img>
                    </div>
               </div>))}
           </div>
