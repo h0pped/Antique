@@ -37,7 +37,7 @@ class OrdersTable extends Component {
                                             <td>{order.city}</td>
                                             <td>{order.delivery + "\t№ " + order.deliveryNum}</td>
                                             <td>{order.totalPrice.toFixed(2)} грн.</td>
-                                            <td><button className="button is-black is-outlined is-rounded" ><span class="icon is-small">
+                                            <td ><button className="button is-black is-outlined is-rounded" onClick={()=>this.props.openOrderInfo(order)}><span class="icon is-small">
                                                 <i class="fas fa-bars"></i>
                                             </span></button></td>
                                         </tr>

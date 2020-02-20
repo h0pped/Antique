@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import OrderService from '../ordersService/OrderService';
-import { Redirect } from 'react-router-dom';
 import { getJwt } from '../Login/helpers';
 import AddNewProduct from '../AddNewProduct/AddNewProduct';
 

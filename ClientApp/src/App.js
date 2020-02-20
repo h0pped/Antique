@@ -15,6 +15,8 @@ import Cart from './components/Cart/Cart';
 import Order from './components/Order/Order';
 import OrderService from './components/ordersService/OrderService';
 import adminPanel from './components/adminPanel/adminPanel';
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
 export default class App extends Component {
   static displayName = App.name;
