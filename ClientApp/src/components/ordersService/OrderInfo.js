@@ -4,6 +4,7 @@ import './OrderInfo.css'
 
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
+import AddInvoice from './addInvoice/AddInvoice'
 
 
 class OrderInfo extends Component {
@@ -11,8 +12,10 @@ class OrderInfo extends Component {
         super(props);
         this.state = {
             isloaded: false,
-            products: {}
+            products: {},
+            addInvoice:false,
         }
+        this.handleAddInvoice = this.handleAddInvoice.bind(this);
     }
     componentDidMount() {
         let apiproducts = [];
@@ -26,6 +29,11 @@ class OrderInfo extends Component {
         })
         this.setState({ products: apiproducts, isloaded: true })
     }
+    handleAddInvoice(){
+        let add = this.state.addInvoice;
+        this.setState({addInvoice:!add});
+        console.log("add ttn: ",add);
+    }
 
     render() {
         const { order } = this.props
@@ -38,7 +46,7 @@ class OrderInfo extends Component {
             </div>;
         }
         else {
-            const { products } = this.state
+            const { products,addInvoice } = this.state
             console.log("PRODUCTS:", this.state.products);
             return (<div>
                 <div className="card">
@@ -50,8 +58,8 @@ class OrderInfo extends Component {
                     <div class="card-content">
                         <div class="content">
                             <p className="has-text-weight-semibold">Заказ #{order.id}</p>
+                            <p  className="has-text-weight-semibold">Статус заказа: {order.isDone ? "Завершён" : "Активный"}</p>
                             <br></br>
-                            <p >Статус заказа: {order.isDone ? "Завершён" : "Активный"}</p>
                             <p >Имя заказчика: {order.name} {order.surname}</p>
                             <p >Номер телефона: {order.number}</p>
                             <p >Город: {order.city}</p>
@@ -79,7 +87,7 @@ class OrderInfo extends Component {
                                             <td>{product.name}</td>
                                             <td>{product.price.toFixed(2)} грн.</td>
                                             <td><button className="button is-black is-outlined is-rounded"><span class="icon is-small">
-                                                <i class="fas fa-bars"></i>
+                                                <i class="fas fa-bars"></i> 
                                             </span></button></td>
                                         </tr>
                                     ))}
@@ -87,7 +95,21 @@ class OrderInfo extends Component {
                             </table>
 
                             <p className="has-text-right"> Общая стоимость: {order.totalPrice.toFixed(2)} грн.</p>
+
                         </div>
+                        <div class="columns">
+
+                        <div className=" column  is-one-quarter">
+                            <button className="button is-dark" onClick={this.handleAddInvoice}>Добавить ТТН</button>
+                        </div>
+                        <div className=" column  is-one-quarter">
+                            <button className="button is-dark">Редактировать заказ</button>
+                        </div>
+                        <div className="column ">
+
+                        </div>
+                        </div>
+                        {addInvoice?<div><AddInvoice order={this.props.order}></AddInvoice></div>:null}
                     </div>
                 </div>
             </div>)

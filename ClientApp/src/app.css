@@ -3,4 +3,10 @@
 body{
     font-family: 'Fira Sans', sans-serif;
     background-color: rgb(247, 247, 247);
+    
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
