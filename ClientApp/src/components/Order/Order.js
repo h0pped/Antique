@@ -43,17 +43,20 @@ class Order extends Component{
         }
         console.log("order", order);
          axios.post("/api/Orders/", order).then(res=>{
-           console.log("data",res.data);
-           this.setState({orderid:res.data.id,iscreated:true})
+           console.log(res);
+           this.setState({orderid:res.data,iscreated:true})
+           this.setState({iscreated:true})
+           
            this.props.clearCart();
          });
+
         event.preventDefault();
       }
     render(){
         if(this.state.iscreated==true ){
           const {orderid} = this.state 
             return(
-              <div className="container center-align">
+              <div className="container has-text-centered">
               <h4>Ваш заказ успешно создан!</h4>
                 <h5>
                   В ближайшее время с вами свяжется наш менеджер!

@@ -164,9 +164,6 @@ class AddNewProduct extends Component {
             <div class="control">
               <button onClick={(e) => this.handleSubmit(e)} class="button is-dark">Добавить</button>
             </div>
-            <div class="control">
-              <button class="button  is-dark">Отмена</button>
-            </div>
           </div>
         </div>
       )
