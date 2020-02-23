@@ -9,8 +9,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import setAuthorizationToken from './components/Login/setAuthorizationToken';
 
-import Zoom from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
+
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');

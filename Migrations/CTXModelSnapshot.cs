@@ -42,6 +42,8 @@ namespace Antique.Migrations
 
                     b.Property<string>("DeliveryNum");
 
+                    b.Property<double>("Invoice");
+
                     b.Property<string>("Name");
 
                     b.Property<string>("Number");
@@ -49,6 +51,8 @@ namespace Antique.Migrations
                     b.Property<string>("Surname");
 
                     b.Property<double>("TotalPrice");
+
+                    b.Property<bool>("isDone");
 
                     b.HasKey("ID");
 

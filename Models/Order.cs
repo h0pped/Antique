@@ -20,6 +20,8 @@ namespace Antique.Models
         public string Delivery { get; set; }
         public string DeliveryNum { get; set; }
         public double TotalPrice { get; set; }
+        public bool isDone { get; set; }
+        public double Invoice { get; set; }
         public ICollection<OrderItem> Items { get; set; }
     }
 }

@@ -11,8 +11,7 @@ using Antique.ViewModel;
 
 namespace Antique.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Orders")]
+    [Route("api/[controller]")]
     public class OrdersController : ControllerBase
     {
         private readonly CTX _context;
@@ -23,28 +22,70 @@ namespace Antique.Controllers
         }
 
         // GET: api/Orders
-        [HttpGet]
+        [HttpGet("allOrders")]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrder()
         {
-            return await _context.Order.ToListAsync();
+            //var model = _context.Order.;
+            var model = _context.Order.Select(x => new
+            {
+                x.ID,
+                x.Name,
+                x.Surname,
+                x.TotalPrice,
+                x.Delivery,
+                x.DeliveryNum,
+                x.Number,
+                x.Items,
+                x.City,
+                x.Invoice
+
+            }).OrderByDescending(x => x.ID);
+            return Ok(model);
+        }
+        [HttpGet("undoneOrders")]
+        public async Task<ActionResult<IEnumerable<Order>>> GetUndoneOrders()
+        {
+            var model = _context.Order.Select(x => new
+            {
+                x.ID,
+                x.Name,
+                x.Surname,
+                x.TotalPrice,
+                x.Delivery,
+                x.DeliveryNum,
+                x.Number,
+                x.Items,
+                x.isDone,
+                x.City,
+                x.Invoice
+            }).Where(x => x.isDone == false).OrderByDescending(x => x.ID);
+            return Ok(model);
         }
 
         // GET: api/Orders/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrder(int id)
         {
-            var order = await _context.Order.FindAsync(id);
-
+            //var order =  _context.Order.Select(x=> new{
+            //    x.ID,
+            //    x.Name,
+            //    x.Surname,
+            //    x.TotalPrice,
+            //    x.Delivery,
+            //    x.DeliveryNum,
+            //    x.Number,
+            //    x.Items
+            //}).FirstOrDefault(x=>x.ID==id);
+            var order = _context.Order.Include("Items.Product").FirstOrDefault(x => x.ID == id);
             if (order == null)
             {
                 return NotFound();
             }
 
-            return order;
+            return Ok(order);
         }
-
         // PUT: api/Orders/5
-        [HttpPut("{id}")] 
+        [HttpPut("{id}")]
         public async Task<IActionResult> PutOrder(int id, Order order)
         {
             if (id != order.ID)
@@ -72,6 +113,48 @@ namespace Antique.Controllers
 
             return NoContent();
         }
+        [HttpPost("addInvoice")]
+        public async Task<IActionResult> AddInvoice([FromBody]InvoiceModel invoice)
+        {
+            Order order = _context.Order.FirstOrDefault(x => x.ID == invoice.ID);
+
+            using (CTX db = _context)
+            {
+                // Редактирование
+                if (order != null)
+                {
+                    order.Invoice = invoice.Invoice;
+                    db.SaveChanges();
+                    return Ok(invoice);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+                // выводим данные после обновления
+            }
+        }
+
+        //public async Task<IActionResult> AddInvoice([FromBody]InvoiceModel Invoice)
+        //{
+        //    Order order = _context.Order.FirstOrDefault(x => x.ID == Invoice.ID);
+
+        //    using (CTX db = _context)
+        //    {
+        //        // Редактирование
+        //        if (order != null)
+        //        {
+        //            order.Invoice = Invoice.Invoice;
+        //            db.SaveChanges();
+        //            return Ok(Invoice);
+        //        }
+        //        else
+        //        {
+        //            return BadRequest();
+        //        }
+        //        // выводим данные после обновления
+        //    }
+        //}
 
         // POST: api/Orders
         [HttpPost]
@@ -101,7 +184,8 @@ namespace Antique.Controllers
                     DeliveryNum = order.DeliveryNum,
                     Number = order.Number,
                     TotalPrice = order.TotalPrice,
-                    Items = products
+                    Items = products,
+                    isDone = false
                     
                 };
                 _context.Order.Add(o);

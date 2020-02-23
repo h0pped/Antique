@@ -130,11 +130,10 @@ namespace Antique.Helpers
                         string fileSave = Path.Combine(fileDestDir, $"{imagePrefix}_{fileName}");
                         if (bmp != null)
                         {
-                            using (var image = ImageHelper.CompressImage(bmp, size, size))
+                            using (var image = ImageHelper.CompressImage(bmp, size, 200))
                             {
                                 if (image == null)
                                     throw new Exception("В процесі створення фото виникли проблеми");
-
                                 image.Save(fileSave, ImageFormat.Jpeg);
 
                             }
