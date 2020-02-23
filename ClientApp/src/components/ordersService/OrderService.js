@@ -20,7 +20,9 @@ class OrderService extends Component {
 
             isDescription: false,
             descriptionOrder: {},
-            descriptionOrderId:null
+            descriptionOrderId:null,
+
+            search:''
         }
         this.openOrderInfo = this.openOrderInfo.bind(this);
     }
@@ -28,6 +30,9 @@ class OrderService extends Component {
     openOrderInfo(order) {
         this.setState({ isDescription: true,descriptionOrder:order,descriptionOrderId:order.id });
         
+    }
+    updateSearch(event) {
+        this.setState({ search: event.target.value });
     }
 
     componentDidMount() {
@@ -57,10 +62,13 @@ class OrderService extends Component {
         const { orders, isloaded, error, currentPage, OrdersPerPage,isDescription } = this.state;
         const indexOfLastProduct = currentPage * OrdersPerPage;
         const indexOfFirstProduct = indexOfLastProduct - OrdersPerPage;
-        const currentOrders = orders.slice(indexOfFirstProduct, indexOfLastProduct);
-        console.log(orders);
+
+        let filteredOrders = orders.filter(order => {
+            return ((order.name.toLowerCase().indexOf(this.state.search.toLowerCase())) != -1)||((order.surname.toLowerCase().indexOf(this.state.search.toLowerCase())) != -1)||((order.name.toLowerCase().concat(" ").indexOf(this.state.search.toLowerCase())) != -1)||((order.name.toLowerCase().concat(" ",order.surname.toLowerCase()).indexOf(this.state.search.toLowerCase())) != -1)||((order.surname.toLowerCase().concat(" ",order.name.toLowerCase()).indexOf(this.state.search.toLowerCase())) != -1)||((order.id==this.state.search))
+        })
+
         const paginate = (pageNumber) => {
-            if (pageNumber < 1 || pageNumber > Math.ceil(orders.length / OrdersPerPage)) {
+            if (pageNumber < 1 || pageNumber > Math.ceil(filteredOrders.length / OrdersPerPage)) {
                 return;
             }
             else
@@ -69,11 +77,21 @@ class OrderService extends Component {
         }
         return (
             <div>
+                
                 {isDescription?<div>
                     <OrderInfo order={this.state.descriptionOrder} id={this.state.descriptionOrderId}></OrderInfo>
                 </div> :<div>
-                    <OrdersTable openOrderInfo={this.openOrderInfo}  orders={currentOrders} isloaded={isloaded} error={error} all={this.props.all} undone={this.props.undone} />
-                    <Pagination productsPerPage={OrdersPerPage} totalProducts={orders.length} paginate={paginate} currentPage={currentPage} />
+                <div class="field">
+                    <label class="label">Поиск</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input" type="text" placeholder="Поиск заказа" value={this.state.search} onChange={this.updateSearch.bind(this)}></input>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+                    <OrdersTable openOrderInfo={this.openOrderInfo}  orders={filteredOrders} isloaded={isloaded} error={error} all={this.props.all} undone={this.props.undone} />
+                    <Pagination productsPerPage={OrdersPerPage} totalProducts={filteredOrders.length} paginate={paginate} currentPage={currentPage} />
                 </div>}
                 
 

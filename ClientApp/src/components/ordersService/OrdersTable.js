@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import ProductDescription from '../productdescription/ProductDescription';
 
 class OrdersTable extends Component {
+    constructor(props){
+        super(props)
+        this.state={
+            search:''
+        }
+    }
     render() {
         const { error, isloaded, orders,undone } = this.props;
         if (error) {
@@ -16,6 +22,7 @@ class OrdersTable extends Component {
             if (orders) {
 
                 return (<div>
+                   
                     <div className='column is-full is-mobile has-text-centered'>
                     <h2 className="is-size-3 new-arrivals-header has-text-dark">{undone?"Новые заказы":"Все заказы"}</h2>
                         
@@ -23,6 +30,7 @@ class OrdersTable extends Component {
                             <table className="table is-fullwidth is-bordered is-hoverable">
                                 <thead>
                                     <tr>
+                                        <th>Номер</th>
                                         <th>Имя</th>
                                         <th>Город</th>
                                         <th>Почта</th>
@@ -33,6 +41,7 @@ class OrdersTable extends Component {
                                 <tbody>
                                     {orders.map((order, index) => (
                                         <tr key={index}>
+                                            <td>{order.id}</td>
                                             <td>{order.name + " " + order.surname}</td>
                                             <td>{order.city}</td>
                                             <td>{order.delivery + "\t№ " + order.deliveryNum}</td>
