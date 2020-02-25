@@ -36,6 +36,7 @@ class NavBarius extends Component {
                                 <li ><Link to="/СтолыИСтулья">Столы и Стулья</Link></li>
                                 <li><Link to="/Часы">Часы</Link></li>
                                 <li className="is-right"><Link to="/Разное">Разное</Link></li>
+                                <li className="is-right"><Link to="/Статус">Статус заказа</Link></li>
                                 <li ><Link className="cartButton" to="/Корзина"><span class="icon">
                                     <i class="fas fa-shopping-cart"></i>
                                 </span>{this.props.cart.count}</Link></li>

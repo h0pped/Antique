@@ -1,0 +1,58 @@
+import React, { Component } from 'react'
+import OrderInfo from '../OrderInfo';
+
+class OrderStatus extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            ordernum: '',
+            is_found: null
+        }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleFindOrder = this.handleFindOrder.bind(this);
+    }
+    handleChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        this.setState({
+            [name]: value
+        });
+        console.log(name, value)
+    }
+    handleFindOrder() {
+        const url = "/api/Orders/" + this.state.ordernum;
+        console.log(url);
+        fetch(url)
+            .then(res => res.json())
+            .then(json => {
+                console.log(json)
+                this.setState({ is_found: true, descriptionOrder: json, id: json.id })
+            }, (error) => {
+                console.log(error)
+                this.setState({ is_found: false })
+            });
+    }
+    render() {
+        const { ordernum, is_found } = this.state;
+
+        return (<div>
+            <div className="columns  has-text-centered">
+                <div className="column">
+                    <p className="is-size-4">Номер заказа: </p>
+                </div>
+                <div className="column has-text-left is-half ">
+                    <input className="input is-medium" type="number" name="ordernum" placeholder="Номер заказа" onChange={(e) => this.handleChange(e)}></input>
+                </div>
+                <div className="column has-text-left">
+
+                    <button disabled={!ordernum} className="Disabled button is-dark" onClick={this.handleFindOrder}>Найти заказ</button>
+                </div>
+
+
+            </div>
+                {is_found ? <OrderInfo order={this.state.descriptionOrder} id={this.state.descriptionOrderId}></OrderInfo> : "ошибка"}
+        </div>)
+    }
+}
+export default OrderStatus;

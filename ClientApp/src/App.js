@@ -15,6 +15,7 @@ import Cart from './components/Cart/Cart';
 import Order from './components/Order/Order';
 import OrderService from './components/ordersService/OrderService';
 import adminPanel from './components/adminPanel/adminPanel';
+import OrderStatus from './components/ordersService/orderStatus/orderStatus';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -39,6 +40,7 @@ export default class App extends Component {
         <Route exact path='/Заказ' component={Order} />
         <Route exact path='/orders' component={OrderService} />
         <Route exact path="/adminPanel" component={adminPanel}/>
+        <Route exact path="/Статус" component={OrderStatus}/>
       </Layout>
     );
   }

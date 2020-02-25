@@ -66,6 +66,7 @@ class OrderService extends Component {
         let filteredOrders = orders.filter(order => {
             return ((order.name.toLowerCase().indexOf(this.state.search.toLowerCase())) != -1)||((order.surname.toLowerCase().indexOf(this.state.search.toLowerCase())) != -1)||((order.name.toLowerCase().concat(" ").indexOf(this.state.search.toLowerCase())) != -1)||((order.name.toLowerCase().concat(" ",order.surname.toLowerCase()).indexOf(this.state.search.toLowerCase())) != -1)||((order.surname.toLowerCase().concat(" ",order.name.toLowerCase()).indexOf(this.state.search.toLowerCase())) != -1)||((order.id==this.state.search))
         })
+        const currentOrders = filteredOrders.slice(indexOfFirstProduct, indexOfLastProduct);
 
         const paginate = (pageNumber) => {
             if (pageNumber < 1 || pageNumber > Math.ceil(filteredOrders.length / OrdersPerPage)) {
@@ -90,7 +91,7 @@ class OrderService extends Component {
                         </span>
                     </div>
                 </div>
-                    <OrdersTable openOrderInfo={this.openOrderInfo}  orders={filteredOrders} isloaded={isloaded} error={error} all={this.props.all} undone={this.props.undone} />
+                    <OrdersTable openOrderInfo={this.openOrderInfo}  orders={currentOrders} isloaded={isloaded} error={error} all={this.props.all} undone={this.props.undone} />
                     <Pagination productsPerPage={OrdersPerPage} totalProducts={filteredOrders.length} paginate={paginate} currentPage={currentPage} />
                 </div>}
                 

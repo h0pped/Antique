@@ -5,6 +5,7 @@ import './OrderInfo.css'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import AddInvoice from './addInvoice/AddInvoice'
+import { getJwt } from '../Login/helpers';
 
 
 class OrderInfo extends Component {
@@ -14,12 +15,20 @@ class OrderInfo extends Component {
             isloaded: false,
             products: {},
             addInvoice: false,
-            is_markedAsDone:false
+            is_markedAsDone:false,
+
+            Auth:false
         }
         this.handleAddInvoice = this.handleAddInvoice.bind(this);
         this.markAsDone = this.markAsDone.bind(this);
     }
     componentDidMount() {
+
+        const jwtt = getJwt();
+        if (jwtt) {
+            this.setState({ Auth: true });
+        }
+
         let apiproducts = [];
         this.props.order.items.forEach(el => {
             axios.get("api/Products/" + el.productId).then(res => {
@@ -59,7 +68,7 @@ class OrderInfo extends Component {
             </div>;
         }
         else {
-            const { products, addInvoice } = this.state
+            const { products, addInvoice,Auth } = this.state
             console.log("PRODUCTS:", this.state.products);
             return (<div>
                 <div className="card">
@@ -111,24 +120,30 @@ class OrderInfo extends Component {
                             <p className="has-text-right"> Общая стоимость: {order.totalPrice.toFixed(2)} грн.</p>
 
                         </div>
-                        <div class="columns">
+                        {Auth?
+                        <div>
 
-                            <div className=" column ">
-                                <button className="button is-dark" onClick={this.handleAddInvoice}>Сменить ТТН</button>
-                            </div>
-                            <div className=" column ">
-                                <button className="button is-dark">Редактировать заказ</button>
-                            </div>
-                            <div className=" column ">
-                                {order.isDone ? null : <button className="button is-dark" onClick={()=>this.markAsDone(order.id)}>Пометить как завершён</button>}
+                         <div class="columns">
 
-                            </div>
-                            <div className="column ">
-                                {is_markedAsDone ? <p className="has-text-success">Статус заказа успешно обновлён!</p> : null}
+                         <div className=" column ">
+                             <button className="button is-dark" onClick={this.handleAddInvoice}>Сменить ТТН</button>
+                         </div>
+                         <div className=" column ">
+                             <button className="button is-dark">Редактировать заказ</button>
+                         </div>
+                         <div className=" column ">
+                             {order.isDone ? null : <button className="button is-dark" onClick={()=>this.markAsDone(order.id)}>Пометить как завершён</button>}
 
-                            </div>
+                         </div>
+                         <div className="column ">
+                             {is_markedAsDone ? <p className="has-text-success">Статус заказа успешно обновлён!</p> : null}
+
+                         </div>
+                     </div>
+                     {addInvoice ? <div><AddInvoice order={this.props.order}></AddInvoice></div> : null}
                         </div>
-                        {addInvoice ? <div><AddInvoice order={this.props.order}></AddInvoice></div> : null}
+                        :null}
+                       
                     </div>
                 </div>
             </div >)
