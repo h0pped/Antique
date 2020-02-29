@@ -134,7 +134,7 @@ class AddNewProduct extends Component {
                 withIcon={false}
                 buttonText='Выберите фото...'
                 onChange={this.onDrop}
-                imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                imgExtension={['.jpg', '.gif', '.png', '.gif','.jpeg']}
                 maxFileSize={5242880}
                 label=""
               />

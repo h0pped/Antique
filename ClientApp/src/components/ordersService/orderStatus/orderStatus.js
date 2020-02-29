@@ -6,7 +6,8 @@ class OrderStatus extends Component {
         super(props);
         this.state = {
             ordernum: '',
-            is_found: null
+            is_found: null,
+            find_error: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleFindOrder = this.handleFindOrder.bind(this);
@@ -27,14 +28,14 @@ class OrderStatus extends Component {
             .then(res => res.json())
             .then(json => {
                 console.log(json)
-                this.setState({ is_found: true, descriptionOrder: json, id: json.id })
+                this.setState({ is_found: true, find_error: true, descriptionOrder: json, id: json.id })
             }, (error) => {
                 console.log(error)
-                this.setState({ is_found: false })
+                this.setState({ is_found: false, find_error: true })
             });
     }
     render() {
-        const { ordernum, is_found } = this.state;
+        const { ordernum, is_found, find_error } = this.state;
 
         return (<div>
             <div className="columns  has-text-centered">
@@ -51,7 +52,9 @@ class OrderStatus extends Component {
 
 
             </div>
-                {is_found ? <OrderInfo order={this.state.descriptionOrder} id={this.state.descriptionOrderId}></OrderInfo> : "ошибка"}
+            {is_found ? <OrderInfo order={this.state.descriptionOrder} id={this.state.descriptionOrderId}></OrderInfo> : null}
+            {find_error ? <div className="column has-text-centered">
+                <p className="is-size-4 has-text-danger">Заказ не был найден</p></div> : null}
         </div>)
     }
 }

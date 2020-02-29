@@ -58,7 +58,9 @@ class Products extends Component {
 
                 <div className="card products-card">
                   {auth ? <div>
+                    <a>
                     <span class="tag is-black" onClick={()=>this.handleDeleteProductModal(product)}>Удалить</span>
+                    </a>
                   </div> : null}
 
                   <div className="card-image products-card-image">
