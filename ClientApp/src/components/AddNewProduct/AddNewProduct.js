@@ -20,18 +20,22 @@ class AddNewProduct extends Component {
       pictures: [],
       pictureDataUrls: [],
       form: {
-        "Name":"",
-        "Price":"",
-        "Description":"",
+        "Name": "",
+        "Price": "",
+        "Description": "",
         "Category": "Комоды",
-        "ImgsBase64":[]
+        ImgsBase64: []
+
       },
 
-      is_valid:false,
-      name_error:"",
-      price_error:"",
-      description_error:"",
-      photo_error:"",
+      name_error: "",
+      price_error: "",
+      description_error: "",
+      photo_error: "",
+
+      axios_error: false,
+
+      isLoading: false,
     };
     this.onDrop = this.onDrop.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,11 +43,11 @@ class AddNewProduct extends Component {
     this.validate = this.validate.bind(this);
   }
   handleDelete(id) {
-    console.log("Delete photo: ",id)
+    console.log("Delete photo: ", id)
     let pictures = this.state.pictureDataUrls;
-    pictures.splice(id,1);
+    pictures.splice(id, 1);
     this.setState({
-      pictureDataUrls:pictures
+      pictureDataUrls: pictures
     })
     this.setState({
 
@@ -59,48 +63,51 @@ class AddNewProduct extends Component {
         [name]: value
       }
     });
-    
+
     console.log(name, value);
   }
-  validate(){
-    let name_error="";
-    let price_error="";
-    let description_error="";
-    let photo_error="";
-    console.log(this.state.form);
-     if(this.state.form.Name.length==0){
-       name_error = "Поле не может быть пустым";
-     }
-     if(this.state.form.Price.length==0){
+  validate() {
+    let name_error = "";
+    let price_error = "";
+    let description_error = "";
+    let photo_error = "";
+    if (this.state.form.Name.length == 0) {
+      name_error = "Поле не может быть пустым";
+    }
+    if (this.state.form.Price.length == 0) {
       price_error = "Поле не может быть пустым";
     }
-    if(this.state.form.Description.length==0){
+    if (this.state.form.Description.length == 0) {
       description_error = "Поле не может быть пустым";
     }
-    if(this.state.form.ImgsBase64.length=0){
-      photo_error="Де фоткы лох";
+    if (this.state.form.ImgsBase64.length == 0) {
+      photo_error = "Товар должен иметь фотографии"
+    };
+    if (name_error || description_error || price_error || photo_error) {
+      this.setState({ name_error, description_error, price_error, photo_error });
+      return false;
     }
-     if(name_error|| description_error|| price_error||photo_error){
-       this.setState({name_error,description_error,price_error,photo_error,is_valid:false});
-     }
-     else if (!name_error|| !description_error|| !price_error||!photo_error){
-      this.setState({name_error,description_error,price_error,photo_error,is_valid:true});
-     }
+    else {
+      this.setState({ name_error, description_error, price_error, photo_error });
+      return true;
+    }
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.validate();
-    if(this.state.is_valid){
 
-      console.log(this.state.form)
+    if (this.validate()) {
+      this.setState({ isLoading: true,axios_error:false });
       axios.put("/api/Products/add", this.state.form).then(res => {
+        this.setState({ isLoading: false });
         window.location = "/"
       }, (error) => {
         console.log(error);
+        this.setState({ axios_error: true, isLoading: false,axios_error_message:error })
+
       })
     }
-    else{
+    else {
 
     }
   }
@@ -116,9 +123,9 @@ class AddNewProduct extends Component {
     console.log("data: ", pictureDataURLs);
     console.log("from state: ", this.state.pictureDataUrls);
   }
-  
-  
-  
+
+
+
   componentDidMount() {
     const jwtt = getJwt();
     if (jwtt) {
@@ -174,32 +181,33 @@ class AddNewProduct extends Component {
           </div>
           <div class="field">
             <label class="label">Фото</label>
+            <p class="help is-danger">{this.state.photo_error}</p>
             <div class="control">
               {/* <button className="button">Выбрать файлы...</button> */}
               <ImageUploader
                 withIcon={false}
                 buttonText='Выберите фото...'
                 onChange={this.onDrop}
-                imgExtension={['.jpg', '.gif', '.png', '.gif','.jpeg']}
+                imgExtension={['.jpg', '.gif', '.png', '.gif', '.jpeg']}
                 maxFileSize={5242880}
                 label=""
               />
             </div>
-            <p class="help is-danger">{this.state.photo_error}</p>
+
           </div>
 
           <div class="columns is-multiline is-mobile">
-            {pictureDataUrls.map((pic,index) => (
+            {pictureDataUrls.map((pic, index) => (
               <div key={index} className="column photocol is-one-third-dekstop is-two-tablet is-one-third-fullhd  is-full-mobile ">
-                   <div>
-                     <div className="tag-div">
+                <div>
+                  <div className="tag-div">
 
-                    <button class="tag is-black" onClick={()=>this.handleDelete(index)}>Удалить</button>
-                    </div>
-                    {/* <Zoom zoomMargin={30}> */}
-                   <img src={pic} alt="dick_pick" ></img>
-                    {/* </Zoom> */}
-                   </div>
+                    <button class="tag is-black" onClick={() => this.handleDelete(index)}>Удалить</button>
+                  </div>
+                  {/* <Zoom zoomMargin={30}> */}
+                  <img src={pic} alt="dick_pick" ></img>
+                  {/* </Zoom> */}
+                </div>
               </div>))}
           </div>
 
@@ -212,12 +220,22 @@ class AddNewProduct extends Component {
               <button onClick={(e) => this.handleSubmit(e)} class="button is-dark">Добавить</button>
             </div>
           </div>
+          {this.state.isLoading ? <div className="has-text-centered">
+            Загрузка...
+                      <progress class="progress is-medium is-dark" max="100">45%</progress>
+          </div> : null}
+
+          {this.state.axios_error ? <div className="has-text-centered has-text-danger">
+              Ошибка во время добавления продукта
+          </div> : null}
+
         </div>
+
       )
     }
     else {
       return (<div>
-          Пожалуйста войдите под своим аккаунтом администратора, чтоб иметь доступ к этой странице. 
+        Пожалуйста войдите под своим аккаунтом администратора, чтоб иметь доступ к этой странице.
         </div>)
     }
   }
