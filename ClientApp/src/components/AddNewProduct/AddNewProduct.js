@@ -23,7 +23,8 @@ class AddNewProduct extends Component {
         "Name":"",
         "Price":"",
         "Description":"",
-        "Category": "Комоды"
+        "Category": "Комоды",
+        "ImgsBase64":[]
       },
 
       is_valid:false,
@@ -75,6 +76,9 @@ class AddNewProduct extends Component {
     }
     if(this.state.form.Description.length==0){
       description_error = "Поле не может быть пустым";
+    }
+    if(this.state.form.ImgsBase64.length=0){
+      photo_error="Де фоткы лох";
     }
      if(name_error|| description_error|| price_error||photo_error){
        this.setState({name_error,description_error,price_error,photo_error,is_valid:false});
