@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './Product.css'
-import { Link } from 'react-router-dom'
-import Zoom from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
+ import { Link } from 'react-router-dom'
+// import Zoom from 'react-medium-image-zoom'
+// import 'react-medium-image-zoom/dist/styles.css'
 import ModalWindow from '../ModalWindow/ModalWindow'
 import axios from 'axios';
 
@@ -46,6 +46,11 @@ class Products extends Component {
                 <progress class="progress is-medium is-dark" max="100">45%</progress>
       </div>;
     }
+    else if(products.length ==0){
+      return <div>
+        К сожалению, товаров в данной рубрике нет
+      </div>
+    }
     else {
       return (
         <div>
@@ -64,11 +69,11 @@ class Products extends Component {
                   </div> : null}
 
                   <div className="card-image products-card-image">
-                    <Zoom zoomMargin={30}>
+                    {/* <Zoom zoomMargin={30}> */}
                     <figure className="image products-image">
                       <img className="products-img" src={'/images/photos/600_' + product.photos[0].path} alt="Placeholder image"></img>
                     </figure>
-                    </Zoom>
+                    {/* </Zoom> */}
                   </div>
                   <div className="card-content">
                     <div className="media-content">

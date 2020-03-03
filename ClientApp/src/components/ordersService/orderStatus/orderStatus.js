@@ -28,7 +28,7 @@ class OrderStatus extends Component {
             .then(res => res.json())
             .then(json => {
                 console.log(json)
-                this.setState({ is_found: true, find_error: true, descriptionOrder: json, id: json.id })
+                this.setState({ is_found: true, find_error: false, descriptionOrder: json, id: json.id })
             }, (error) => {
                 console.log(error)
                 this.setState({ is_found: false, find_error: true })

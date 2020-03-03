@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import './OrderInfo.css'
 
-import Zoom from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
+// import Zoom from 'react-medium-image-zoom'
+// import 'react-medium-image-zoom/dist/styles.css'
 import AddInvoice from './addInvoice/AddInvoice'
 import { getJwt } from '../Login/helpers';
 
@@ -103,9 +103,10 @@ class OrderInfo extends Component {
                                     products.map((product, index) => (
                                         <tr key={index}>
                                             <td>{product.id}</td>
-                                            <td><Zoom >
+                                            <td>
+                                                {/* <Zoom > */}
                                                 <img className="orderimg" src={'/images/photos/1280_' + product.photos[0].path} alt="Placeholder image"></img>
-                                            </Zoom>
+                                            {/* </Zoom> */}
                                             </td>
                                             <td>{product.name}</td>
                                             <td>{product.price.toFixed(2)} грн.</td>

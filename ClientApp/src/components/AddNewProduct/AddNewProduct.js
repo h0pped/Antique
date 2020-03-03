@@ -5,8 +5,8 @@ import './AddNewProduct.css'
 import axios from 'axios'
 
 
-import Zoom from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
+// import Zoom from 'react-medium-image-zoom'
+// import 'react-medium-image-zoom/dist/styles.css'
 
 import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
@@ -20,12 +20,22 @@ class AddNewProduct extends Component {
       pictures: [],
       pictureDataUrls: [],
       form: {
+        "Name":"",
+        "Price":"",
+        "Description":"",
         "Category": "Комоды"
-      }
+      },
+
+      is_valid:false,
+      name_error:"",
+      price_error:"",
+      description_error:"",
+      photo_error:"",
     };
     this.onDrop = this.onDrop.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.validate = this.validate.bind(this);
   }
   handleDelete(id) {
     console.log("Delete photo: ",id)
@@ -48,18 +58,47 @@ class AddNewProduct extends Component {
         [name]: value
       }
     });
+    
     console.log(name, value);
+  }
+  validate(){
+    let name_error="";
+    let price_error="";
+    let description_error="";
+    let photo_error="";
+    console.log(this.state.form);
+     if(this.state.form.Name.length==0){
+       name_error = "Поле не может быть пустым";
+     }
+     if(this.state.form.Price.length==0){
+      price_error = "Поле не может быть пустым";
+    }
+    if(this.state.form.Description.length==0){
+      description_error = "Поле не может быть пустым";
+    }
+     if(name_error|| description_error|| price_error||photo_error){
+       this.setState({name_error,description_error,price_error,photo_error,is_valid:false});
+     }
+     else if (!name_error|| !description_error|| !price_error||!photo_error){
+      this.setState({name_error,description_error,price_error,photo_error,is_valid:true});
+     }
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    this.validate();
+    if(this.state.is_valid){
 
-    console.log(this.state.form)
-    axios.put("/api/Products/add", this.state.form).then(res => {
-      window.location = "/"
-    }, (error) => {
-      console.log(error);
-    })
+      console.log(this.state.form)
+      axios.put("/api/Products/add", this.state.form).then(res => {
+        window.location = "/"
+      }, (error) => {
+        console.log(error);
+      })
+    }
+    else{
+
+    }
   }
   onDrop(pictureFiles, pictureDataURLs) {
     this.setState({
@@ -95,6 +134,7 @@ class AddNewProduct extends Component {
             <div class="control">
               <input class="input " type="text" name="Name" placeholder="Введите название товара" onChange={(e) => this.handleChange(e)}></input>
             </div>
+            <p class="help is-danger">{this.state.name_error}</p>
           </div>
 
 
@@ -118,6 +158,7 @@ class AddNewProduct extends Component {
             <div class="control">
               <input class="input  form-price" type="number" name="Price" placeholder="Введите цену товара" onChange={(e) => this.handleChange(e)}></input>
             </div>
+            <p class="help is-danger">{this.state.price_error}</p>
           </div>
 
           <div class="field">
@@ -125,6 +166,7 @@ class AddNewProduct extends Component {
             <div class="control">
               <textarea name="Description" class="textarea" placeholder="Введите описание товара" onChange={(e) => this.handleChange(e)}></textarea>
             </div>
+            <p class="help is-danger">{this.state.description_error}</p>
           </div>
           <div class="field">
             <label class="label">Фото</label>
@@ -139,6 +181,7 @@ class AddNewProduct extends Component {
                 label=""
               />
             </div>
+            <p class="help is-danger">{this.state.photo_error}</p>
           </div>
 
           <div class="columns is-multiline is-mobile">
@@ -149,9 +192,9 @@ class AddNewProduct extends Component {
 
                     <button class="tag is-black" onClick={()=>this.handleDelete(index)}>Удалить</button>
                     </div>
-                    <Zoom zoomMargin={30}>
+                    {/* <Zoom zoomMargin={30}> */}
                    <img src={pic} alt="dick_pick" ></img>
-                    </Zoom>
+                    {/* </Zoom> */}
                    </div>
               </div>))}
           </div>

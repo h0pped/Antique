@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
-import Zoom from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
+// import Zoom from 'react-medium-image-zoom'
+// import 'react-medium-image-zoom/dist/styles.css'
 
 class ModalWindow extends Component {
     constructor(props) {
@@ -23,9 +23,9 @@ class ModalWindow extends Component {
                         <button class="delete" aria-label="close" onClick={this.props.closeModal}></button>
                     </header>
                     <section class="modal-card-body has-text-centered">
-                        <Zoom zoomMargin={30} >
+                        {/* <Zoom zoomMargin={30} > */}
                             <img src={"/images/photos/600_"+product.photos[0].path}></img>
-                        </Zoom>
+                        {/* </Zoom> */}
                         <p className="is-size-6">
                             {product.description.substr(0,100)}...
                         </p>
