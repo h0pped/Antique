@@ -143,7 +143,7 @@ class AddNewProduct extends Component {
           <div class="field">
             <label class="label">Название</label>
             <div class="control">
-              <input class="input " type="text" name="Name" placeholder="Введите название товара" onChange={(e) => this.handleChange(e)}></input>
+              <input class="input " maxLength="100" type="text" name="Name" placeholder="Введите название товара" onChange={(e) => this.handleChange(e)}></input>
             </div>
             <p class="help is-danger">{this.state.name_error}</p>
           </div>
