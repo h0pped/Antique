@@ -3,13 +3,9 @@ import axios from 'axios'
 import './ProductDescription.css'
 
 
-// import Zoom from 'react-medium-image-zoom'
-//  import 'react-medium-image-zoom/dist/styles.css'
  
-import Slider from 'infinite-react-carousel';
+import {Slider} from 'infinite-react-carousel';
 
-// import "react-responsive-carousel/lib/styles/carousel.min.css";
-// import { Carousel } from 'react-responsive-carousel';
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -73,24 +69,13 @@ class ProductDescription extends Component {
                             <Slider { ...SliderSettings }>
                             {productdata.photos.map(photo => (
                                 <div>
-                               {/*  <Zoom zoomMargin={30}> */}
                                     <figure className="image">
                                         <img src={'/images/photos/1280_' + photo.path} alt="Placeholder image"></img>
                                     </figure>
-                                {/* </Zoom> */}
                             </div>
                                 ))}
                             </Slider>
                             
-                            {/* {productdata.photos.map(photo => (
-                                <div>
-                                    <Zoom zoomMargin={30}>
-                                        <figure className="image">
-                                            <img src={'/images/photos/1280_' + photo.path} alt="Placeholder image"></img>
-                                        </figure>
-                                    </Zoom>
-                                </div>
-                            ))} */}
                         </div>
                         <div className="card-content">
                             <div className="media-content">

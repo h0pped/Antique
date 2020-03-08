@@ -6,6 +6,7 @@ import './OrderInfo.css'
 // import 'react-medium-image-zoom/dist/styles.css'
 import AddInvoice from './addInvoice/AddInvoice'
 import { getJwt } from '../Login/helpers';
+import { Link } from 'react-router-dom';
 
 
 class OrderInfo extends Component {
@@ -110,9 +111,12 @@ class OrderInfo extends Component {
                                             </td>
                                             <td>{product.name}</td>
                                             <td>{product.price.toFixed(2)} грн.</td>
-                                            <td><button className="button is-black is-outlined is-rounded"><span class="icon is-small">
+                                            <td><Link to={"/description/"+product.id}>
+                                            <button className="button is-black is-outlined is-rounded"><span class="icon is-small">
                                                 <i class="fas fa-bars"></i>
-                                            </span></button></td>
+                                            </span></button>
+                                            </Link>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>

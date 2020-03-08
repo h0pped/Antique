@@ -1,0 +1,75 @@
+.slider-maindiv{
+    padding: 10px;
+    position: relative;
+  text-align: center;
+  color: white;
+}
+
+.homeCarouseldiv{
+    height: 300px;
+}
+.homeCarouseldiv img{
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+
+}
+.carousel-text{
+   
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
+}
+.topic{
+    position: relative;
+  text-align: center;
+  color: white;
+  padding: 10px;
+  transition: transform .2s;
+
+}
+.topic:hover{
+    transform: scale(1.05); 
+}
+.topic img{
+    width: 100%;
+    height: 40vh;
+  object-fit: cover;
+
+}
+.topics-text{
+    width: 95%;
+    height: auto;
+    position: absolute;
+  top: 95%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(51, 51, 51, 0.644);
+}
+
+@media only screen and (max-width:1200px){
+    .homeCarouseldiv{
+        height: 150px;
+    }
+    .topic img{
+        width: 100%;
+        height: 30vh;
+    
+    }
+}
+@media only screen and (max-width:700px){
+    .homeCarouseldiv{
+        height: 100px;
+    }
+    .topic img{
+        width: 100%;
+        height: 15vh;
+    
+    }
+}
