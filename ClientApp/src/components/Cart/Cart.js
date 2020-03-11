@@ -52,21 +52,21 @@ class Cart extends Component {
                                         <td>{product.id}</td>
                                         <td>{product.name}</td>
                                         <td>{product.price.toFixed(2)}грн.</td>
-                                        <td><button className="button is-black is-outlined is-rounded" onClick={(e) => { e.preventDefault(); this.props.deleteProductFromCart(index); }}><span class="icon is-small">
-                                            <i class="fas fa-minus-circle"></i>
+                                        <td><button className="button is-black is-outlined is-rounded" onClick={(e) => { e.preventDefault(); this.props.deleteProductFromCart(index); }}><span className="icon is-small">
+                                            <i className="fas fa-minus-circle"></i>
                                         </span></button></td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
-                    <div class="columns">
+                    <div className="columns">
                     <div className="column is-offset-2  has-text-left is-one-third-dekstop is-two-tablet is-one-third-fullhd  is-full-mobile">
                                 <h3 className="is-size-4">Общая стоимость: {this.props.cart.total.toFixed(2)}грн.</h3>
                     </div>
                     <div className="column">
-                    <Link to="/Заказ"><button className="button is-dark"> <span class="icon">
-                                    <i class="fa fa-shopping-cart"></i>
+                    <Link to="/Заказ"><button className="button is-dark"> <span className="icon">
+                                    <i className="fa fa-shopping-cart"></i>
                                 </span> <p> Оформить заказ</p></button></Link>
                     </div>
                     <div className="column is-3 is-zero-tablet is-zero-mobile">

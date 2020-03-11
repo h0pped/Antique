@@ -32,8 +32,6 @@ class ProductService extends Component {
             search: "",
 
             Auth: false
-
-
         }
     }
     updateSearch(event) {
@@ -42,16 +40,12 @@ class ProductService extends Component {
     
 
     componentDidMount() {
-        console.log(this.props.category);
         let url = this.state.apiUrl;
 
         if (this.props.category) {
-            console.log(this.props.category);
             url = this.state.apiUrl + "/GetByCategory/" + this.props.category;
 
         }
-        console.log(url);
-
         fetch(url)
             .then(res => res.json())
             .then(json => {
@@ -70,7 +64,6 @@ class ProductService extends Component {
         const { products, isloaded, error, currentPage, productsPerPage, Auth } = this.state;
         const indexOfLastProduct = currentPage * productsPerPage;
         const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-        console.log("Products: ", products);
 
         let filteredProducts = products.filter(product => {
             return product.name.toLowerCase().indexOf(this.state.search.toLowerCase()) != -1;
@@ -81,7 +74,6 @@ class ProductService extends Component {
 
         const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
-        console.log(filteredProducts);
         const paginate = (pageNumber) => {
             if (pageNumber < 1 || pageNumber > Math.ceil(filteredProducts.length / productsPerPage)) {
                 return;
@@ -92,12 +84,12 @@ class ProductService extends Component {
         }
         return (
             <div>
-                <div class="field">
-                    <label class="label">Поиск</label>
-                    <div class="control has-icons-left has-icons-right">
-                        <input class="input" type="text" placeholder="Поиск товаров" value={this.state.search} onChange={this.updateSearch.bind(this)}></input>
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-search"></i>
+                <div className="field">
+                    <label className="label">Поиск</label>
+                    <div className="control has-icons-left has-icons-right">
+                        <input className="input" type="text" placeholder="Поиск товаров" value={this.state.search} onChange={this.updateSearch.bind(this)}></input>
+                        <span className="icon is-small is-left">
+                            <i className="fas fa-search"></i>
                         </span>
                     </div>
                 </div>

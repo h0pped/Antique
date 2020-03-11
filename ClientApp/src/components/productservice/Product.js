@@ -10,7 +10,9 @@ class Products extends Component {
     super()
     this.state={
       product:{},
-      isVisible:false
+      isVisible:false,
+      is_deleted:false,
+      delete_error:false
     }
     this.handleDeleteProductModal = this.handleDeleteProductModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -23,13 +25,16 @@ class Products extends Component {
   deleteProduct(){
     let url = this.props.url;
     url+="/delete/"+this.state.product.id;
-    console.log("Delete product url: "+url);
     axios.delete(url).then(data=>{
-      window.location.reload();
-    }).catch(error=>console.log(error));
+      this.setState({is_deleted:true})
+      setTimeout(() => {
+        window.location.reload();
+       }, 2000);
+    }).catch(error=>{
+      this.setState({delete_error:true})
+    });
   }
   handleDeleteProductModal(prod){
-    console.log("DeleteProduct: ",prod)
     this.setState({product:prod, isVisible:true})
     }
   render() {
@@ -41,7 +46,7 @@ class Products extends Component {
     } else if (!isloaded) {
       return <div>
                 Загрузка...
-                <progress class="progress is-medium is-dark" max="100">45%</progress>
+                <progress className="progress is-medium is-dark" max="100">45%</progress>
       </div>;
     }
     else if(products.length ==0){
@@ -52,7 +57,7 @@ class Products extends Component {
     else {
       return (
         <div>
-                <ModalWindow closeModal={this.closeModal} isVisible={this.state.isVisible} product={this.state.product} deleteProduct={this.deleteProduct}></ModalWindow>
+                <ModalWindow closeModal={this.closeModal} is_deleted={this.state.is_deleted} delete_error={this.state.delete_error} isVisible={this.state.isVisible} product={this.state.product} deleteProduct={this.deleteProduct}></ModalWindow>
 
           <div className="columns is-multiline is-mobile">
 
@@ -62,7 +67,7 @@ class Products extends Component {
                 <div className="card products-card">
                   {auth ? <div>
                     <a>
-                    <span class="tag is-black" onClick={()=>this.handleDeleteProductModal(product)}>Удалить</span>
+                    <span className="tag is-black" onClick={()=>this.handleDeleteProductModal(product)}>Удалить</span>
                     </a>
                   </div> : null}
 

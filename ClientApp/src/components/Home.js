@@ -42,8 +42,8 @@ class Home extends Component {
         </div>
         <div className="topics-div has-text-centered ">
 
-          <div class="columns is-mobile">
-            <div class="column  is-one-third-mobile is-one-third-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
+          <div className="columns is-mobile">
+            <div className="column  is-one-third-mobile is-one-third-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
               <Link to="Комоды">
               <div className="topic">
                 <img src="/images/pictures/topic-furniture.jpg" alt="Placeholder image"></img>
@@ -54,7 +54,7 @@ class Home extends Component {
               </div>
               </Link>
             </div>
-            <div class="column is-one-third-mobile is-one-third-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
+            <div className="column is-one-third-mobile is-one-third-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
             <Link to="/МягкаяЧасть">
              
               <div className="topic">
@@ -66,7 +66,7 @@ class Home extends Component {
               </div>
               </Link>
             </div>
-            <div class="column is-one-third-mobile is-one-third-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
+            <div className="column is-one-third-mobile is-one-third-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
               <Link to="/СтолыИСтулья">
               <div className="topic">
                 <img src="/images/pictures/topic-table.jpg" alt="Placeholder image"></img>
@@ -79,8 +79,8 @@ class Home extends Component {
             </div>
           </div>
 
-          <div class="columns is-mobile">
-          <div class="column is-one-third-mobile is-one-third-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
+          <div className="columns is-mobile">
+          <div className="column is-one-third-mobile is-one-third-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
               <Link to="/Часы">
               <div className="topic">
                 <img src="/images/pictures/topic-clock.jpg" alt="Placeholder image"></img>
@@ -91,7 +91,7 @@ class Home extends Component {
               </div>
               </Link>
             </div>
-            <div class="column is-one-third-mobile is-one-third-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
+            <div className="column is-one-third-mobile is-one-third-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
              <Link to="/Разное">
               <div className="topic">
                 <img src="/images/pictures/topic-different.png" alt="Placeholder image"></img>
@@ -102,7 +102,7 @@ class Home extends Component {
               </div>
              </Link>
             </div>
-            <div class="column is-one-third-mobile is-one-third-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
+            <div className="column is-one-third-mobile is-one-third-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd">
               <Link to="/Статус">
               <div className="topic">
                 <img src="https://i.pinimg.com/originals/07/76/f8/0776f8ccc9b90af73c282068fe454d7a.jpg" alt="Placeholder image"></img>

@@ -8,9 +8,6 @@ import axios from 'axios'
 // import Zoom from 'react-medium-image-zoom'
 // import 'react-medium-image-zoom/dist/styles.css'
 
-import { Link } from 'react-router-dom'
-import { Redirect } from 'react-router-dom'
-import Login from '../Login/Login'
 
 class AddNewProduct extends Component {
   constructor(props) {
@@ -36,6 +33,7 @@ class AddNewProduct extends Component {
       axios_error: false,
 
       isLoading: false,
+      is_added:false
     };
     this.onDrop = this.onDrop.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,7 +41,6 @@ class AddNewProduct extends Component {
     this.validate = this.validate.bind(this);
   }
   handleDelete(id) {
-    console.log("Delete photo: ", id)
     let pictures = this.state.pictureDataUrls;
     pictures.splice(id, 1);
     this.setState({
@@ -64,23 +61,22 @@ class AddNewProduct extends Component {
       }
     });
 
-    console.log(name, value);
   }
   validate() {
     let name_error = "";
     let price_error = "";
     let description_error = "";
     let photo_error = "";
-    if (this.state.form.Name.length == 0) {
+    if (this.state.form.Name.length === 0) {
       name_error = "Поле не может быть пустым";
     }
-    if (this.state.form.Price.length == 0) {
+    if (this.state.form.Price.length === 0) {
       price_error = "Поле не может быть пустым";
     }
-    if (this.state.form.Description.length == 0) {
+    if (this.state.form.Description.length === 0) {
       description_error = "Поле не может быть пустым";
     }
-    if (this.state.form.ImgsBase64.length == 0) {
+    if (this.state.form.ImgsBase64.length === 0) {
       photo_error = "Товар должен иметь фотографии"
     };
     if (name_error || description_error || price_error || photo_error) {
@@ -99,10 +95,11 @@ class AddNewProduct extends Component {
     if (this.validate()) {
       this.setState({ isLoading: true,axios_error:false });
       axios.put("/api/Products/add", this.state.form).then(res => {
-        this.setState({ isLoading: false });
-        window.location = "/"
+        this.setState({ isLoading: false,is_added:true });
+        setTimeout(() => {
+          window.location.reload();
+         }, 2000);
       }, (error) => {
-        console.log(error);
         this.setState({ axios_error: true, isLoading: false,axios_error_message:error })
 
       })
@@ -128,8 +125,6 @@ class AddNewProduct extends Component {
     const jwtt = getJwt();
     if (jwtt) {
       this.setState({ Auth: true })
-      console.log("JWT add new product-->", jwtt);
-      console.log("AUTH add new product:", this.state.Auth);
     }
   }
 
@@ -225,6 +220,9 @@ class AddNewProduct extends Component {
 
           {this.state.axios_error ? <div className="has-text-centered has-text-danger">
               Ошибка во время добавления продукта
+          </div> : null}
+          {this.state.is_added ? <div className="has-text-centered has-text-success">
+              Товар был успешно добавлен!
           </div> : null}
 
         </div>

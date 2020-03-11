@@ -36,9 +36,6 @@ class OrderService extends Component {
     }
 
     componentDidMount() {
-        console.log("PROPS", this.props);
-        console.log(this.props.category);
-
         let url = this.state.apiUrl;
 
         if (this.props.all == true) {
@@ -48,7 +45,6 @@ class OrderService extends Component {
         if (this.props.undone == true) {
             url += "undoneOrders";
         }
-        console.log(url);
 
         fetch(url)
             .then(res => res.json())
@@ -82,12 +78,12 @@ class OrderService extends Component {
                 {isDescription?<div>
                     <OrderInfo order={this.state.descriptionOrder} id={this.state.descriptionOrderId}></OrderInfo>
                 </div> :<div>
-                <div class="field">
-                    <label class="label">Поиск</label>
-                    <div class="control has-icons-left has-icons-right">
-                        <input class="input" type="text" placeholder="Поиск заказа" value={this.state.search} onChange={this.updateSearch.bind(this)}></input>
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-search"></i>
+                <div className="field">
+                    <label className="label">Поиск</label>
+                    <div className="control has-icons-left has-icons-right">
+                        <input className="input" type="text" placeholder="Поиск заказа" value={this.state.search} onChange={this.updateSearch.bind(this)}></input>
+                        <span className="icon is-small is-left">
+                            <i className="fas fa-search"></i>
                         </span>
                     </div>
                 </div>

@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import ImageUploader from 'react-images-upload';
+import { getJwt } from '../Login/helpers';
 
 class ProductUpdate extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            Auth: false,
 
             isloading: true,
             product: null,
@@ -13,7 +15,7 @@ class ProductUpdate extends Component {
             is_error: false,
             pictures: [],
             pictureDataUrls: [],
-            productid:null,
+            productid: null,
 
             form: {
                 "Name": "",
@@ -28,7 +30,9 @@ class ProductUpdate extends Component {
             price_error: "",
             description_error: "",
             photo_error: "",
-            axios_error: false
+
+            axios_error: false,
+            is_updated: false,
         }
         this.onDrop = this.onDrop.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -97,21 +101,29 @@ class ProductUpdate extends Component {
     }
 
     componentDidMount() {
-        const { id } = this.state;
-        console.log(id);
-        axios.get("/api/products/" + id).then(res => {
-            this.setState({
-                product: res.data, isloading: false, form: {
-                    "Name": res.data.name,
-                    "Price": res.data.price,
-                    "Description": res.data.description,
-                    "Category": res.data.category.name,
-                    ImgsBase64: []
-                }
+        const jwtt = getJwt();
+        if (jwtt) {
+            this.setState({ Auth: true,isloading:false })
+            const { id } = this.state;
+            console.log(id);
+            axios.get("/api/products/" + id).then(res => {
+                this.setState({
+                    product: res.data, isloading: false, form: {
+                        "Name": res.data.name,
+                        "Price": res.data.price,
+                        "Description": res.data.description,
+                        "Category": res.data.category.name,
+                        ImgsBase64: []
+                    }
+                });
+            }).catch(error => {
+                this.setState({ isloading: false, is_error: true });
             });
-        }).catch(error => {
-            this.setState({ isloading: false, is_error: true });
-        });
+        }
+        else{
+            this.setState({ Auth: false,isloading:false })
+
+        }
     }
     onDrop(pictureFiles, pictureDataURLs) {
         this.setState({
@@ -125,28 +137,30 @@ class ProductUpdate extends Component {
     }
     handleSubmit(e) {
         e.preventDefault();
-          if (this.validate()) {
-              console.log(this.state.form);
-            this.setState({ isLoading: true,axios_error:false });
-            axios.post("/api/Products/editTest/"+this.state.id,this.state.form).then(res => {
-              this.setState({ isLoading: false });
-              window.location = "/"
+        if (this.validate()) {
+            console.log(this.state.form);
+            this.setState({ isLoading: true, axios_error: false });
+            axios.post("/api/Products/editTest/" + this.state.id, this.state.form).then(res => {
+                this.setState({ isLoading: false, is_updated: true });
+                setTimeout(() => {
+                    window.location.replace("/");
+                }, 2000);
             }, (error) => {
-              this.setState({ axios_error: true, isLoading: false,axios_error_message:error })
+                this.setState({ axios_error: true, isLoading: false, axios_error_message: error })
 
             })
-          }
-          else {
+        }
+        else {
 
-          }
+        }
     }
     render() {
-        const { isloading, is_error, pictureDataUrls, product,form } = this.state
+        const { isloading, is_error, pictureDataUrls, Auth } = this.state
         if (isloading) {
             return (<div>
 
                 Загрузка...
-                <progress class="progress is-medium is-dark" max="100">45%</progress>
+                <progress className="progress is-medium is-dark" max="100">45%</progress>
             </div>
             )
         }
@@ -157,93 +171,104 @@ class ProductUpdate extends Component {
             )
         }
         else {
-            return (<div>
-                <div className="has-text-centered">
-                <p className="is-size-4 has-text-black">Редактирование Товара</p>
-                </div>
-                <div class="field">
-                    <label class="label">Название</label>
-                    <div class="control">
-            <input class="input " value={this.state.form.Name}  maxLength="100" type="text" name="Name" placeholder="Введите название товара" onChange={(e) => this.handleChange(e)}></input>
+            if (Auth) {
+
+                return (<div>
+                    <div className="has-text-centered">
+                        <p className="is-size-4 has-text-black">Редактирование Товара</p>
                     </div>
-                    <p class="help is-danger">{this.state.name_error}</p>
-                </div>
-                <div class="field">
-                    <label class="label">Рубрика</label>
-                    <div class="control">
-                        <div class="select">
-                            <select name="Category" className="form-price" onChange={(e) => this.handleChange(e)}>
-                                <option disabled>Выберите рубрику</option>
-                                <option value="Комоды">Комоды</option>
-                                <option value="Часы">Часы</option>
-                                <option value="Столы И cтулья">Столы и стулья</option>
-                                <option value="Мягкая Часть">Мягкая часть</option>
-                                <option value="Разное">Разноe</option>
-                            </select>
+                    <div className="field">
+                        <label className="label">Название</label>
+                        <div className="control">
+                            <input className="input " value={this.state.form.Name} maxLength="100" type="text" name="Name" placeholder="Введите название товара" onChange={(e) => this.handleChange(e)}></input>
+                        </div>
+                        <p className="help is-danger">{this.state.name_error}</p>
+                    </div>
+                    <div className="field">
+                        <label className="label">Рубрика</label>
+                        <div className="control">
+                            <div className="select">
+                                <select name="Category" className="form-price" onChange={(e) => this.handleChange(e)}>
+                                    <option disabled>Выберите рубрику</option>
+                                    <option value="Комоды">Комоды</option>
+                                    <option value="Часы">Часы</option>
+                                    <option value="Столы И cтулья">Столы и стулья</option>
+                                    <option value="Мягкая Часть">Мягкая часть</option>
+                                    <option value="Разное">Разноe</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="field">
-                    <label class="label">Цена</label>
-                    <div class="control">
-                        <input class="input  form-price" value={this.state.form.Price} type="number" name="Price" placeholder="Введите цену товара" onChange={(e) => this.handleChange(e)}></input>
-                    </div>
-                    <p class="help is-danger">{this.state.price_error}</p>
-                </div>
-
-                <div class="field">
-                    <label class="label">Описание товара</label>
-                    <div class="control">
-                        <textarea name="Description" value={this.state.form.Description} class="textarea" placeholder="Введите описание товара" onChange={(e) => this.handleChange(e)}></textarea>
-                    </div>
-                    <p class="help is-danger">{this.state.description_error}</p>
-                </div>
-                <div class="field">
-                    <label class="label">Фото</label>
-                    <p class="help is-danger">{this.state.photo_error}</p>
-                    <div class="control">
-                        <ImageUploader
-                            withIcon={false}
-                            buttonText='Выберите фото...'
-                            onChange={this.onDrop}
-                            imgExtension={['.jpg', '.gif', '.png', '.gif', '.jpeg']}
-                            maxFileSize={5242880}
-                            label=""
-                        />
+                    <div className="field">
+                        <label className="label">Цена</label>
+                        <div className="control">
+                            <input className="input  form-price" value={this.state.form.Price} type="number" name="Price" placeholder="Введите цену товара" onChange={(e) => this.handleChange(e)}></input>
+                        </div>
+                        <p className="help is-danger">{this.state.price_error}</p>
                     </div>
 
-                </div>
+                    <div className="field">
+                        <label className="label">Описание товара</label>
+                        <div className="control">
+                            <textarea name="Description" value={this.state.form.Description} className="textarea" placeholder="Введите описание товара" onChange={(e) => this.handleChange(e)}></textarea>
+                        </div>
+                        <p className="help is-danger">{this.state.description_error}</p>
+                    </div>
+                    <div className="field">
+                        <label className="label">Фото</label>
+                        <p className="help is-danger">{this.state.photo_error}</p>
+                        <div className="control">
+                            <ImageUploader
+                                withIcon={false}
+                                buttonText='Выберите фото...'
+                                onChange={this.onDrop}
+                                imgExtension={['.jpg', '.gif', '.png', '.gif', '.jpeg']}
+                                maxFileSize={5242880}
+                                label=""
+                            />
+                        </div>
 
-                <div class="columns is-multiline is-mobile">
-                    {pictureDataUrls.map((pic, index) => (
-                        <div key={index} className="column photocol is-one-third-dekstop is-two-tablet is-one-third-fullhd  is-full-mobile ">
-                            <div>
-                                <div className="tag-div">
+                    </div>
 
-                                    <button class="tag is-black" onClick={() => this.handleDelete(index)}>Удалить</button>
+                    <div className="columns is-multiline is-mobile">
+                        {pictureDataUrls.map((pic, index) => (
+                            <div key={index} className="column photocol is-one-third-dekstop is-two-tablet is-one-third-fullhd  is-full-mobile ">
+                                <div>
+                                    <div className="tag-div">
+
+                                        <button className="tag is-black" onClick={() => this.handleDelete(index)}>Удалить</button>
+                                    </div>
+                                    {/* <Zoom zoomMargin={30}> */}
+                                    <img src={pic} alt="dick_pick" ></img>
+                                    {/* </Zoom> */}
                                 </div>
-                                {/* <Zoom zoomMargin={30}> */}
-                                <img src={pic} alt="dick_pick" ></img>
-                                {/* </Zoom> */}
-                            </div>
-                        </div>))}
+                            </div>))}
 
-                </div>
-                <div class="field is-grouped">
-                    <div class="control">
-                        <button onClick={(e) => this.handleSubmit(e)} class="button is-dark">Добавить</button>
                     </div>
-                </div>
-                {this.state.isLoading ? <div className="has-text-centered">
-                    Загрузка...
-                      <progress class="progress is-medium is-dark" max="100">45%</progress>
-                </div> : null}
+                    <div className="field is-grouped">
+                        <div className="control">
+                            <button onClick={(e) => this.handleSubmit(e)} className="button is-dark">Редактировать</button>
+                        </div>
+                    </div>
+                    {this.state.isLoading ? <div className="has-text-centered">
+                        Загрузка...
+                      <progress className="progress is-medium is-dark" max="100">45%</progress>
+                    </div> : null}
 
-                {this.state.axios_error ? <div className="has-text-centered has-text-danger">
-                    Ошибка во время добавления продукта
+                    {this.state.is_error ? <div className="has-text-centered has-text-danger">
+                        Ошибка во время редактирования продукта
+          </div> : null}
+                    {this.state.is_updated ? <div className="has-text-centered has-text-success">
+                        Продукт был успешно отредактирован!
           </div> : null}
 
-            </div>)
+                </div>)
+            }
+            else {
+                return (<div>
+                    Пожалуйста войдите под своим аккаунтом администратора, чтоб иметь доступ к этой странице.
+                </div>)
+            }
         }
     }
 }

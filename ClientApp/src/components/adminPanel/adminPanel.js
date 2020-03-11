@@ -29,11 +29,11 @@ class adminPanel extends Component {
             return (<div className="columns">
                 <div className="column is-one-fifth">
 
-                    <aside class="menu">
-                        <p class="menu-label">
+                    <aside className="menu">
+                        <p className="menu-label">
                             Панель
                  </p>
-                        <ul class="menu-list">
+                        <ul className="menu-list">
                             <li>
                                 <a>Заказы</a>
                                 <ul>

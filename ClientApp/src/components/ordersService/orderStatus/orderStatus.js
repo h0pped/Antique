@@ -19,18 +19,14 @@ class OrderStatus extends Component {
         this.setState({
             [name]: value
         });
-        console.log(name, value)
     }
     handleFindOrder() {
         const url = "/api/Orders/" + this.state.ordernum;
-        console.log(url);
         fetch(url)
             .then(res => res.json())
             .then(json => {
-                console.log(json)
                 this.setState({ is_found: true, find_error: false, descriptionOrder: json, id: json.id })
             }, (error) => {
-                console.log(error)
                 this.setState({ is_found: false, find_error: true })
             });
     }

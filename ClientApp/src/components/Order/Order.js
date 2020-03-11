@@ -98,7 +98,6 @@ class Order extends Component {
         [name]: value
       }
     });
-    console.log(name, value);
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -116,9 +115,7 @@ class Order extends Component {
         Products: this.props.cart.products
       }
       this.setState({isloading:true});
-      console.log("order", order);
       axios.post("/api/Orders/", order).then(res => {
-        console.log(res);
         this.setState({ orderid: res.data, iscreated: true,isloading:false })
 
         this.props.clearCart();
@@ -148,33 +145,33 @@ class Order extends Component {
     else if (this.props.cart.products.length != 0) {
       return (
         <div className="column is-half is-offset-one-quarter has-background-white-ter">
-          <div class="field">
-            <label class="label">Имя</label>
-            <div class="control">
-              <input class="input " type="text" name="Name" placeholder="Введите ваше имя" onChange={(e) => this.handleChange(e)}></input>
+          <div className="field">
+            <label className="label">Имя</label>
+            <div className="control">
+              <input className="input " type="text" name="Name" placeholder="Введите ваше имя" onChange={(e) => this.handleChange(e)}></input>
             
             </div>
-            <p class="help is-danger">{this.state.name_error}</p>
+            <p className="help is-danger">{this.state.name_error}</p>
           </div>
-          <div class="field">
-            <label class="label">Фамилия</label>
-            <div class="control">
-              <input class="input " type="text" name="Surname" placeholder="Введите вашу фамилию" onChange={(e) => this.handleChange(e)}></input>
+          <div className="field">
+            <label className="label">Фамилия</label>
+            <div className="control">
+              <input className="input " type="text" name="Surname" placeholder="Введите вашу фамилию" onChange={(e) => this.handleChange(e)}></input>
             </div>
-            <p class="help is-danger">{this.state.surname_error}</p>
+            <p className="help is-danger">{this.state.surname_error}</p>
           </div>
-          <div class="field">
-            <label class="label">Город</label>
-            <div class="control">
-              <input class="input " type="text" name="City" placeholder="Введите ваш город" onChange={(e) => this.handleChange(e)}></input>
+          <div className="field">
+            <label className="label">Город</label>
+            <div className="control">
+              <input className="input " type="text" name="City" placeholder="Введите ваш город" onChange={(e) => this.handleChange(e)}></input>
             </div>
-            <p class="help is-danger">{this.state.city_error}</p>
+            <p className="help is-danger">{this.state.city_error}</p>
             
           </div>
-          <div class="field">
-            <label class="label">Служба доставки</label>
-            <div class="control">
-              <div class="select">
+          <div className="field">
+            <label className="label">Служба доставки</label>
+            <div className="control">
+              <div className="select">
                 <select name="Delivery" className="form-price" onChange={(e) => this.handleChange(e)}>
                   <option disabled>Выберите службу доставки</option>
                   <option>Новая почта</option>
@@ -184,20 +181,20 @@ class Order extends Component {
               </div>
             </div>
           </div>
-          <div class="field">
-            <label class="label">Номер отделения</label>
-            <div class="control">
-              <input class="input " type="number" name="Deliverynum" placeholder="Введите номер отделения" onChange={(e) => this.handleChange(e)}></input>
+          <div className="field">
+            <label className="label">Номер отделения</label>
+            <div className="control">
+              <input className="input " type="number" name="Deliverynum" placeholder="Введите номер отделения" onChange={(e) => this.handleChange(e)}></input>
             </div>
-            <p class="help is-danger">{this.state.deliverynum_error}</p>
+            <p className="help is-danger">{this.state.deliverynum_error}</p>
 
           </div>
-          <div class="field">
-            <label class="label">Номер телефона</label>
-            <div class="control">
-              <input class="input " type="number" name="Number" placeholder="Введите номер телефона" onChange={(e) => this.handleChange(e)}></input>
+          <div className="field">
+            <label className="label">Номер телефона</label>
+            <div className="control">
+              <input className="input " type="number" name="Number" placeholder="Введите номер телефона" onChange={(e) => this.handleChange(e)}></input>
             </div>
-            <p class="help is-danger">{this.state.num_error}</p>
+            <p className="help is-danger">{this.state.num_error}</p>
 
           </div>
 
@@ -209,7 +206,7 @@ class Order extends Component {
           </div>
           {this.state.isloading ? <div className="has-text-centered">
             Загрузка...
-                      <progress class="progress is-medium is-dark" max="100">45%</progress>
+                      <progress className="progress is-medium is-dark" max="100">45%</progress>
           </div> : null}
           {this.state.error ? <div className="has-text-centered has-text-danger">
               Ошибка во время оформления заказа. Попробуйте ещё раз.

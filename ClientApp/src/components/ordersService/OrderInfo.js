@@ -16,9 +16,9 @@ class OrderInfo extends Component {
             isloaded: false,
             products: {},
             addInvoice: false,
-            is_markedAsDone:false,
+            is_markedAsDone: false,
 
-            Auth:false
+            Auth: false
         }
         this.handleAddInvoice = this.handleAddInvoice.bind(this);
         this.markAsDone = this.markAsDone.bind(this);
@@ -44,42 +44,37 @@ class OrderInfo extends Component {
     handleAddInvoice() {
         let add = this.state.addInvoice;
         this.setState({ addInvoice: !add });
-        console.log("add ttn: ", add);
     }
     markAsDone(i) {
         axios.post("api/Orders/markAsDone/" + i).then(res => {
             this.setState({ is_markedAsDone: true });
-            console.log("Marked successfully!");
             setTimeout(() => {
                 window.location.reload();
             }, 3000);
         }).catch(err => {
-            console.log("Marking error", err)
         })
     }
 
     render() {
         const { order } = this.props
         const { isloaded, is_markedAsDone } = this.state
-        console.log(order);
         if (!isloaded) {
             return <div>
                 Загрузка...
-                      <progress class="progress is-medium is-dark" max="100">45%</progress>
+                      <progress className="progress is-medium is-dark" max="100">45%</progress>
             </div>;
         }
         else {
-            const { products, addInvoice,Auth } = this.state
-            console.log("PRODUCTS:", this.state.products);
+            const { products, addInvoice, Auth } = this.state
             return (<div>
                 <div className="card">
-                    <header class="card-header">
-                        <p class="card-header-title">
+                    <header className="card-header">
+                        <p className="card-header-title">
                             Информация о заказе
                     </p>
                     </header>
-                    <div class="card-content">
-                        <div class="content">
+                    <div className="card-content">
+                        <div className="content">
                             <p className="has-text-weight-semibold">Заказ #{order.id}</p>
                             <p className="has-text-weight-semibold">Статус заказа: {order.isDone ? "Завершён" : "Активный"}</p>
                             <br></br>
@@ -107,14 +102,14 @@ class OrderInfo extends Component {
                                             <td>
                                                 {/* <Zoom > */}
                                                 <img className="orderimg" src={'/images/photos/1280_' + product.photos[0].path} alt="Placeholder image"></img>
-                                            {/* </Zoom> */}
+                                                {/* </Zoom> */}
                                             </td>
                                             <td>{product.name}</td>
                                             <td>{product.price.toFixed(2)} грн.</td>
-                                            <td><Link to={"/description/"+product.id}>
-                                            <button className="button is-black is-outlined is-rounded"><span class="icon is-small">
-                                                <i class="fas fa-bars"></i>
-                                            </span></button>
+                                            <td><Link to={"/description/" + product.id}>
+                                                <button className="button is-black is-outlined is-rounded"><span className="icon is-small">
+                                                    <i className="fas fa-bars"></i>
+                                                </span></button>
                                             </Link>
                                             </td>
                                         </tr>
@@ -125,30 +120,26 @@ class OrderInfo extends Component {
                             <p className="has-text-right"> Общая стоимость: {order.totalPrice.toFixed(2)} грн.</p>
 
                         </div>
-                        {Auth?
-                        <div>
+                        {Auth ?
+                            <div>
+                                <div className="columns">
+                                    <div className=" column ">
+                                        <button className="button is-dark" onClick={this.handleAddInvoice}>Сменить ТТН</button>
+                                    </div>
+                                    <div className=" column ">
+                                        <button className="button is-dark">Редактировать заказ</button>
+                                    </div>
+                                    <div className=" column ">
+                                        {order.isDone ? null : <button className="button is-dark" onClick={() => this.markAsDone(order.id)}>Пометить как завершён</button>}
+                                    </div>
+                                    <div className="column ">
+                                        {is_markedAsDone ? <p className="has-text-success">Статус заказа успешно обновлён!</p> : null}
+                                    </div>
+                                </div>
+                                {addInvoice ? <div><AddInvoice order={this.props.order}></AddInvoice></div> : null}
+                            </div>
+                            : null}
 
-                         <div class="columns">
-
-                         <div className=" column ">
-                             <button className="button is-dark" onClick={this.handleAddInvoice}>Сменить ТТН</button>
-                         </div>
-                         <div className=" column ">
-                             <button className="button is-dark">Редактировать заказ</button>
-                         </div>
-                         <div className=" column ">
-                             {order.isDone ? null : <button className="button is-dark" onClick={()=>this.markAsDone(order.id)}>Пометить как завершён</button>}
-
-                         </div>
-                         <div className="column ">
-                             {is_markedAsDone ? <p className="has-text-success">Статус заказа успешно обновлён!</p> : null}
-
-                         </div>
-                     </div>
-                     {addInvoice ? <div><AddInvoice order={this.props.order}></AddInvoice></div> : null}
-                        </div>
-                        :null}
-                       
                     </div>
                 </div>
             </div >)

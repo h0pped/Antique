@@ -28,8 +28,8 @@ class NavBarius extends Component {
                     <div className="column is-full has-text-centered">
                         <nav className="breadcrumb is-large is-centered" aria-label="breadcrumbs">
                             <ul>
-                                {Auth ? <li ><Link className="adminButton" to="/adminPanel"><span class="icon">
-                                    <i class="fas fa-user-cog"></i>
+                                {Auth ? <li ><Link className="adminButton" to="/adminPanel"><span className="icon">
+                                    <i className="fas fa-user-cog"></i>
                                 </span></Link></li> : null}
                                 <li><Link to="/Комоды">Комоды</Link></li>
                                 <li><Link to="/МягкаяЧасть">Мягкая часть</Link></li>
@@ -37,8 +37,8 @@ class NavBarius extends Component {
                                 <li><Link to="/Часы">Часы</Link></li>
                                 <li className="is-right"><Link to="/Разное">Разное</Link></li>
                                 <li className="is-right"><Link to="/Статус">Статус заказа</Link></li>
-                                <li ><Link className="cartButton" to="/Корзина"><span class="icon">
-                                    <i class="fas fa-shopping-cart"></i>
+                                <li ><Link className="cartButton" to="/Корзина"><span className="icon">
+                                    <i className="fas fa-shopping-cart"></i>
                                 </span>{this.props.cart.count}</Link></li>
                             </ul>
                         </nav>

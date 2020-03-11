@@ -7,7 +7,7 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, currentPage }) =
         pageNumbers.push(i);
     }
 
-    if (pageNumbers.length != 1) {
+    if (pageNumbers.length !== 1) {
         return (
 
             <div>

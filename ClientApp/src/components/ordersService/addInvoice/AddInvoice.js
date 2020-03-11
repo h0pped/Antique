@@ -6,7 +6,8 @@ class AddInvoice extends Component {
         super(props);
         this.state = {
             invoice:null,
-            is_added:false
+            is_added:false,
+            is_invoice_error:false
         }
         this.AddInvoice = this.AddInvoice.bind(this);
     }
@@ -23,25 +24,24 @@ class AddInvoice extends Component {
             id:i,
             invoice: this.state.invoice
         }).then(res=>{
-            console.log("Invoce added sucessfully", res.data);
             this.setState({is_added:true});
             setTimeout(() => {
                window.location.reload();
               }, 3000);
         }).catch(err=>{
-            console.log("Invoce error", err)
+            this.setState({is_invoice_error:true});
         })
     }
     render() {
-        const {is_added} = this.state;
+        const {is_added,is_invoice_error} = this.state;
         return (<div>
             <div className="card">
-                <div class="card-content">
+                <div className="card-content">
                     <p>Введите номер накладной:</p>
                     <div className="columns">
 
                         <div className="column is-half">
-                            <input class="input" type="number" name="invoice" placeholder="Накладная" onChange={(e)=>this.handleChange(e)}></input>
+                            <input className="input" type="number" name="invoice" placeholder="Накладная" onChange={(e)=>this.handleChange(e)}></input>
                         </div>
                         <div className="column is-one-quarter">
                             <button className="button is-success" onClick={()=>this.AddInvoice(this.props.order.id)}>Добавить</button>
@@ -49,6 +49,7 @@ class AddInvoice extends Component {
                         
                         <div className="column is-one-quarter">
                             {is_added?<p className="has-text-success">Номер ТТН был успешно изменён!</p>:null}
+                            {is_invoice_error?<p className="has-text-danger">Ошибка во время изменения ТТН!</p>:null}
                             
                         </div>
                     </div>

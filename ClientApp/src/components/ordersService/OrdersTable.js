@@ -16,7 +16,7 @@ class OrdersTable extends Component {
             )
         } else if (!isloaded) {
             return <div className=" is-size-3 has-text-centered">Загрузка...
-            <progress class="progress is-medium is-dark" max="100">45%</progress></div>;
+            <progress className="progress is-medium is-dark" max="100">45%</progress></div>;
         }
         else {
             if (orders) {
@@ -46,8 +46,8 @@ class OrdersTable extends Component {
                                             <td>{order.city}</td>
                                             <td>{order.delivery + "\t№ " + order.deliveryNum}</td>
                                             <td>{order.totalPrice.toFixed(2)} грн.</td>
-                                            <td ><button className="button is-black is-outlined is-rounded" onClick={()=>this.props.openOrderInfo(order)}><span class="icon is-small">
-                                                <i class="fas fa-bars"></i>
+                                            <td ><button className="button is-black is-outlined is-rounded" onClick={()=>this.props.openOrderInfo(order)}><span className="icon is-small">
+                                                <i className="fas fa-bars"></i>
                                             </span></button></td>
                                         </tr>
                                     ))}

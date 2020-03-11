@@ -19,9 +19,6 @@ class Footer extends Component{
         const jwtt = getJwt();
         if(jwtt){
             this.setState({Auth:true})
-            console.log("JWT-->",jwtt);
-          console.log("AUTH:",this.state.Auth);
-          console.log("decode",jwt.decode(jwtt));
         }
     }
     handleLogOff(event){
@@ -43,7 +40,7 @@ render(){
                 <div>
                  <Link to="/" onClick={(e)=>this.handleLogOff(e)}><button className="button is-dark">Выйти из аккаунта</button></Link>                
                  </div>
-            :<Link to="/Login"><a className="button is-dark">Войти в аккаунт</a></Link>
+            :<Link to="/Login"><button className="button is-dark">Войти в аккаунт</button></Link>
         }
         </div>
       </footer>
