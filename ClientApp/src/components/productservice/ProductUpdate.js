@@ -107,7 +107,6 @@ class ProductUpdate extends Component {
                     "Description": res.data.description,
                     "Category": res.data.category.name,
                     ImgsBase64: []
-
                 }
             });
         }).catch(error => {
@@ -126,7 +125,6 @@ class ProductUpdate extends Component {
     }
     handleSubmit(e) {
         e.preventDefault();
-//console.log(this.state.form);
           if (this.validate()) {
               console.log(this.state.form);
             this.setState({ isLoading: true,axios_error:false });
