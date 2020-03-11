@@ -120,8 +120,6 @@ class AddNewProduct extends Component {
         ImgsBase64: pictureDataURLs
       }
     });
-    console.log("data: ", pictureDataURLs);
-    console.log("from state: ", this.state.pictureDataUrls);
   }
 
 

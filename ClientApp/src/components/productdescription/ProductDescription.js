@@ -41,8 +41,7 @@ class ProductDescription extends Component {
 
 
     render() {
-        const handleOnDragStart = e => e.preventDefault()
-        const { isloading, productdata, id } = this.state
+        const { isloading, productdata } = this.state
         if (isloading) {
             return (<div>
 

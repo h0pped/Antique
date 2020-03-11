@@ -16,6 +16,7 @@ import Order from './components/Order/Order';
 import OrderService from './components/ordersService/OrderService';
 import adminPanel from './components/adminPanel/adminPanel';
 import OrderStatus from './components/ordersService/orderStatus/orderStatus';
+import ProductUpdate from './components/productservice/ProductUpdate';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -35,6 +36,7 @@ export default class App extends Component {
         <Route exact path='/Login' component={Login} />
         
         <Route exact path='/description/:id' component={ProductDescription} />
+        <Route exact path='/updateproduct/:id' component={ProductUpdate} />
         <Route exact path='/AddProduct' component={AddNewProduct} />
         <Route exact path='/Корзина' component={Cart} />
         <Route exact path='/Заказ' component={Order} />
