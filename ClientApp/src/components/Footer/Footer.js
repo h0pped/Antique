@@ -48,8 +48,12 @@ class Footer extends Component {
                         <div className="column is-5">
                             <p>О нас</p>
                             <br></br>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                        </div>
+                            <p>Антикварный интернет-магазин «Лавка старины» является на сегодня одним из самых крупных магазинов по продаже антиквариата и старинных предметов в интернете. Мы хотим, чтобы наш ресурс был интересен людям с утонченным вкусом, состоявшимся и начинающим коллекционерам, тем, кто просто увлекается стариной, а также всем поклонникам прекрасного.
+<br></br>
+<br></br>
+У нас всегда можно приобрести разнообразные предметы антиквариата и коллекционирования. В нашем огромном ассортименте есть как вещи бытового назначения, так и эксклюзивные, коллекционные предметы, а также потрясающие подарки.
+</p>
+                                </div>
                         <div className="column">
                             <p>Категории</p>
                             <br></br>
