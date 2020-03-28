@@ -127,9 +127,6 @@ class OrderInfo extends Component {
                                         <button className="button is-dark" onClick={this.handleAddInvoice}>Сменить ТТН</button>
                                     </div>
                                     <div className=" column ">
-                                        <button className="button is-dark">Редактировать заказ</button>
-                                    </div>
-                                    <div className=" column ">
                                         {order.isDone ? null : <button className="button is-dark" onClick={() => this.markAsDone(order.id)}>Пометить как завершён</button>}
                                     </div>
                                     <div className="column ">
