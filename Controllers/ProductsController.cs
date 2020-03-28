@@ -13,6 +13,7 @@ using System.IO;
 using Antique.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace antique_store.Controllers
 {
@@ -33,10 +34,11 @@ namespace antique_store.Controllers
         }
 
         [HttpGet]
+
         [Route("")]
         public async Task<ActionResult> GetProducts()
         {
-           var model = _context.Products.Select(p => new
+            var model = _context.Products.Select(p => new
             {
                 p.ID,
                 p.Name,
@@ -44,7 +46,7 @@ namespace antique_store.Controllers
                 p.Description,
                 p.Category,
                 p.Photos
-            });
+            }).OrderByDescending(x=>x.ID);
 
 
             return Ok(model.ToList());
@@ -85,7 +87,7 @@ namespace antique_store.Controllers
                 p.Description,
                 p.Category,
                 p.Photos
-            }).Where(x => x.Category.Name == category);
+            }).Where(x => x.Category.Name == category).OrderByDescending(x=>x.ID);
 
 
             if (model == null)
@@ -95,7 +97,6 @@ namespace antique_store.Controllers
 
             return Ok(model);
         }
-
         [HttpDelete]
         [Route("delete/{id}")]
         public ActionResult DeleteProduct(int id)
@@ -104,6 +105,12 @@ namespace antique_store.Controllers
             if (dproduct != null)
             {
                 _context.Products.Remove(dproduct);
+                foreach(var x in dproduct.Photos)
+                {
+                    InitStaticFiles.DeleteImageByFileName(_env, _configuration,
+                                            new string[] { "ImagesPath", "ImagesPathProduct" },
+                                            x.Path);
+                }
                 _context.SaveChanges();
                 return Ok();
 
@@ -111,6 +118,63 @@ namespace antique_store.Controllers
             else
             {
                 return BadRequest();
+            }
+        }
+        [HttpPost]
+        [Route("editTest/{id}")]
+        public async Task<ActionResult<Product>> Edit(int id,[FromBody] ProductModel model)
+        {
+            Product product = _context.Products.Include("Photos").FirstOrDefault(x => x.ID == id);
+
+            using (CTX db = _context)
+            {
+                if (product != null)
+                {
+                        List<Photo> added_photos = new List<Photo>();
+                    try
+                    {
+                        foreach (var x in product.Photos)
+                        {
+                            InitStaticFiles.DeleteImageByFileName(_env, _configuration,
+                                                    new string[] { "ImagesPath", "ImagesPathProduct" },
+                                                    x.Path);
+                        }
+                        foreach (var photo in model.ImgsBase64)
+                        {
+
+                            string imageName = Path.GetRandomFileName() + ".jpg";
+
+                            string pathSaveImages = InitStaticFiles
+                                       .CreateImageByFileName(_env, _configuration,
+                                            new string[] { "ImagesPath", "ImagesPathProduct" },
+                                            imageName,
+                                            photo);
+                            added_photos.Add(new Photo
+                            {
+                                Path = imageName
+                            });
+
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        return BadRequest();
+                    }
+
+                    product.Name = model.Name;
+                    product.Description = model.Description;
+                    product.Price = model.Price;
+                    product.Photos.Clear();
+                    product.Photos = added_photos;
+
+
+                    db.SaveChanges();
+                    return Ok(product);
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
         }
 

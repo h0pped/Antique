@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import get from 'lodash.get';
 import PropTypes from "prop-types";
-import * as cartActions from '../productservice/reducer';
+import * as cartActions from '../productservice/reducer'
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom'
 

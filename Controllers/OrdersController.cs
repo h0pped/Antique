@@ -37,7 +37,8 @@ namespace Antique.Controllers
                 x.Number,
                 x.Items,
                 x.City,
-                x.Invoice
+                x.Invoice,
+                x.isDone
 
             }).OrderByDescending(x => x.ID);
             return Ok(model);
@@ -134,6 +135,27 @@ namespace Antique.Controllers
                 // выводим данные после обновления
             }
         }
+        [HttpPost("markAsDone/{id}")]
+        public async Task<IActionResult> markAsDone(int id)
+        {
+            Order order = _context.Order.FirstOrDefault(x => x.ID == id);
+
+            using (CTX db = _context)
+            {
+                // Редактирование
+                if (order != null)
+                {
+                    order.isDone = true;
+                    db.SaveChanges();
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+                // выводим данные после обновления
+            }
+        }
 
         //public async Task<IActionResult> AddInvoice([FromBody]InvoiceModel Invoice)
         //{
@@ -195,7 +217,7 @@ namespace Antique.Controllers
             {
                 return BadRequest(ex);
             }
-            return o;
+            return Ok(o.ID);
             /*_context.Order.Add(order);
             await _context.SaveChangesAsync();
 

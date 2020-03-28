@@ -92,7 +92,7 @@ namespace Antique.Controllers
             }
 
             var now = DateTime.UtcNow;
-            // создаем JWT-токен
+            // создание JWT-токена
             var jwt = new JwtSecurityToken(
                     issuer: AuthOptions.ISSUER,
                     audience: AuthOptions.AUDIENCE,

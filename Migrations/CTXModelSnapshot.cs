@@ -42,7 +42,7 @@ namespace Antique.Migrations
 
                     b.Property<string>("DeliveryNum");
 
-                    b.Property<double>("Invoice");
+                    b.Property<long>("Invoice");
 
                     b.Property<string>("Name");
 

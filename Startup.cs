@@ -15,6 +15,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.IO;
 
 namespace Antique
@@ -31,7 +33,12 @@ namespace Antique
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvcCore().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddAuthorization() // Note - this is on the IMvcBuilder, not the service collection
+    .AddJsonFormatters(options => options.ContractResolver = new CamelCasePropertyNamesContractResolver()).AddJsonOptions(options =>
+    {
+        options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
+        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+    });
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
 
@@ -91,6 +98,11 @@ namespace Antique
            // app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                PreserveReferencesHandling = PreserveReferencesHandling.All,
+                ReferenceLoopHandling = ReferenceLoopHandling.Serialize
+            };
 
 
             //шлях на сервері

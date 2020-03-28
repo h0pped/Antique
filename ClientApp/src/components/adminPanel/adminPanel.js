@@ -59,11 +59,11 @@ class adminPanel extends Component {
                     </div>) : null}
 
                     {this.state.is_statistics ? (<div>
-                        <h3>Статистика</h3>
+                        <h3>Страница "Статистика" находится в стадии разработки</h3>
                     </div>) : null}
 
                     {this.state.is_settings ? (<div>
-                        <h3>Настройки</h3>
+                        <h3>Страница "Настройки" находится в стадии разработки</h3>
                     </div>) : null}
                     {this.state.is_add_product ? (<div>
                         <div className="columns">

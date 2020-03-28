@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Product.css'
  import { Link } from 'react-router-dom'
-import ModalWindow from '../ModalWindow/ModalWindow'
+import ModalWindow from '../Template/ModalWindow/ModalWindow'
 import axios from 'axios';
 
 

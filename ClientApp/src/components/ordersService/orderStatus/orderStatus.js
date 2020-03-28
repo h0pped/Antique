@@ -33,8 +33,9 @@ class OrderStatus extends Component {
     render() {
         const { ordernum, is_found, find_error } = this.state;
 
-        return (<div>
-            <div className="columns  has-text-centered">
+        return (<div className="has-text-centered">
+            <p className="is-size-3">Статус заказа</p>
+            <div className="columns">
                 <div className="column">
                     <p className="is-size-4">Номер заказа: </p>
                 </div>

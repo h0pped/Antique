@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container } from 'reactstrap';
-import NavBar from './navbar/NavBar'
-import Title from './title/Title';
+import NavBar from './Template/navbar/NavBar'
+import Title from './Template/title/Title';
 import Footer from './Footer/Footer';
 
 export class Layout extends Component {

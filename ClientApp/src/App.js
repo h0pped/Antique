@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { Layout } from './components/Layout';
-import Home  from './components/Home';
+import Home  from './components/Home/Home';
 import ProductDescription from './components/productdescription/ProductDescription'
 import './app.css';
-import Commodes from './components/Commodes/Commodes';
-import Clocks from './components/Clocks/Clocks';
-import Soft from './components/Soft/Soft';
-import Tables from './components/Tables/Tables';
-import Another from './components/Another/Another';
+import Commodes from './components/Categories/Commodes/Commodes';
+import Clocks from './components/Categories/Clocks/Clocks';
+import Soft from './components/Categories/Soft/Soft';
+import Tables from './components/Categories/Tables/Tables';
+import Another from './components/Categories/Another/Another';
 import Login from './components/Login/Login';
 import AddNewProduct from './components/AddNewProduct/AddNewProduct';
 import Cart from './components/Cart/Cart';
-import Order from './components/Order/Order';
+import Order from './components/ordersService/Order/Order';
 import OrderService from './components/ordersService/OrderService';
 import adminPanel from './components/adminPanel/adminPanel';
 import OrderStatus from './components/ordersService/orderStatus/orderStatus';

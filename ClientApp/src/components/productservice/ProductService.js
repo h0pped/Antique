@@ -9,7 +9,6 @@ import get from 'lodash.get';
 
 import * as cartActions from './reducer';
 import { getJwt } from '../Login/helpers.js';
-import ModalWindow from '../ModalWindow/ModalWindow.js';
 
 const propTypes = {
     cart: PropTypes.object.isRequired,
