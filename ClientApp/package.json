@@ -9,7 +9,7 @@
     "bulma": "^0.7.5",
     "immutability-helper": "^3.0.1",
     "infinite-react-carousel": "^1.2.11",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "lodash.get": "^4.4.2",
