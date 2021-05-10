@@ -11,7 +11,7 @@
     "infinite-react-carousel": "^1.2.11",
     "jquery": "^3.5.0",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "lodash.get": "^4.4.2",
     "prop-types": "^15.7.2",
     "pure-react-carousel": "^1.25.2",
